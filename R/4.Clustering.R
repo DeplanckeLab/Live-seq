@@ -12,7 +12,7 @@
 
 library(rprojroot)
 root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils.R"))
+source(paste0(root_dir, "/utils/utils.R"))
 require(Seurat); require(clustree); require(ggplot2); require(gridExtra); require(dplyr)
 
 ##---------------------------------------------##
