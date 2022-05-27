@@ -21,7 +21,7 @@ library(dplyr)
 library(plyr)
 
 root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir,"/7.DE_allData/myFunction_DEallData.R"))
+source(paste0(root_dir,"/utils/myFunctions_DEacrossCT.R"))
 source(paste0(root_dir,"/8.DEwithinCT/myFunctions_DEwithinCT.R"))
 
 ##---------------------------------------------##
