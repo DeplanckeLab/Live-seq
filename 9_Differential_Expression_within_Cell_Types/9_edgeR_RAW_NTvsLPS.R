@@ -20,9 +20,9 @@ library(ggplot2)
 library(dplyr)
 
 root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils.R"))
-source(paste0(root_dir, "6.DE_allData"))
-source(paste0(root_dir, "8.DE_withinCT/myFunctions_DEwithinCT.R"))
+source(paste0(root_dir, "/utils/utils.R"))
+source(paste0(root_dir, "/utils/myFunctions_DEacrossCT.R"))
+source(paste0(root_dir, "/utils/myFunctions_DEwithinCT.R"))
 
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
