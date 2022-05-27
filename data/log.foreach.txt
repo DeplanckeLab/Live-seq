@@ -1,0 +1,486 @@
+
+[1] "s "start downsampling to 250000 re
+ds"
+[1][1]tart downsampling to 50000 reads"  "start downsampling to 25000 reads
+
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6322
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9015
+Number of communities: 4
+Elapsed time: 0 seconds
+Type: EXEC 
+[1] "start downsampling to 10000 reads"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6326
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9031
+Number of communities: 4
+Elapsed time: 0 seconds
+Type: EXEC 
+[1] "start downsampling to 5000 reads"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6360
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9029
+Number of communities: 4
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6290
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9023
+Number of communities: 6
+Elapsed time: 0 seconds
+Type: EXEC 
+[1] "start downsampling to 2500 reads"
+Type: EXEC 
+[1] "start downsampling to 1000 reads"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6283
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8999
+Number of communities: 4
+Elapsed time: 0 seconds
+Type: EXEC 
+[1] "start downsampling to 500 reads"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6464
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8934
+Number of communities: 4
+Elapsed time: 0 seconds
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Type: DONE 
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6810
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9002
+Number of communities: 4
+Elapsed time: 0 seconds
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 6998
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8952
+Number of communities: 5
+Elapsed time: 0 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 8258
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8763
+Number of communities: 4
+Elapsed time: 0 seconds
+[1] "downsampling matrix completed"
+ [1] "ori_" "ori_" "ori_" ""     ""     ""     ""     ""     ""     ""    
+[11] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[21] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[31] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[41] ""     ""     ""     ""     ""     ""     ""     ""     ""     ""    
+[51] ""     ""     ""     ""     ""     ""     ""     ""    
+ [1] "ori_orig.ident"                "ori_nCount_RNA"               
+ [3] "ori_nFeature_RNA"              "percent.mt"                   
+ [5] "percent.rRNA"                  "percent.protein"              
+ [7] "sample_name"                   "original_sample_name"         
+ [9] "Batch"                         "Cell_type"                    
+[11] "Compartment"                   "Species"                      
+[13] "sampling_type"                 "treatment"                    
+[15] "ERCC"                          "Sequencer"                    
+[17] "Sequencing_run"                "Sequencing_protocol"          
+[19] "i5_index"                      "i7_index"                     
+[21] "cDNA_profile"                  "cDNA_concentration"           
+[23] "trial"                         "Date"                         
+[25] "Probe"                         "Cell_NO"                      
+[27] "Extract_NO"                    "Note"                         
+[29] "Volume_preloaded_buffer_fl"    "Volume_extract_and_preload_fl"
+[31] "Volume_cell_extract_fl"        "Extraction_time_h"            
+[33] "library_concentration"         "mCherry_TNFa"                 
+[35] "double_extraction"             "double_extraction_order"      
+[37] "celltype_treatment"            "input.reads"                  
+[39] "ave.read.len"                  "uniquely.mapped"              
+[41] "multiple.mapped"               "too.many.mapped"              
+[43] "too.many.mismatches"           "too.short"                    
+[45] "others"                        "mCherry.log.intercept"        
+[47] "mCherry.log.slope"             "mCherry.AUC"                  
+[49] "sample_ID"                     "uniquely.mapped.rate"         
+[51] "intron.mapped.rate"            "S.Score"                      
+[53] "G2M.Score"                     "Phase"                        
+[55] "old.ident"                     "RNA_snn_res.0.2"              
+[57] "seurat_clusters"               "subcluster"                   
+[1] "start combine the meta data"
+[1] "meta data combined sucessfully"
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 294
+Number of edges: 8977
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8307
+Number of communities: 3
+Elapsed time: 0 seconds
