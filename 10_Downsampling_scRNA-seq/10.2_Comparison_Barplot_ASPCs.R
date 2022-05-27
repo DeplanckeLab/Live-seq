@@ -14,6 +14,7 @@ library(edgeR)
 library(ggplot2)
 library(dplyr)
 library(ggbreak)
+root_dir <- find_root(has_file("Live-seq.RProj"))
 
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
