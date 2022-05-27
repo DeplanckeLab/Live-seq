@@ -26,9 +26,9 @@ library(dplyr)
 ##---------------------------------------------##
 
 root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils.R"))
+source(paste0(root_dir, "/utils/utils.R"))
 
-Liveseq_all <- readRDS("/home/pyrainer/SVRAW1/wchen/data_analysis/Live_seq/final_analysis_V3/Liveseq_all_fluoresecene_added.3_7.5h.RDS")
+Liveseq_all <- readRDS(paste0(root_dir, "/data/Liveseq_all_fluoresecene_added.3_7.5h.RDS"))
 Liveseq_all$uniquely.mapped.rate <- Liveseq_all$uniquely.mapped / Liveseq_all$input.reads
 
 scRNAseq_all <- readRDS("~/SVRAW1/wchen/data_analysis/Live_seq/final_analysis_V3/scRNAseq_only/scRNAseq.rds")
@@ -102,9 +102,9 @@ f_tsne_plots <- function(myseu, clust_res = 0.3){
 #Extended Data figure 2 i, j
 P <- f_tsne_plots(live_aspcs, clust_res = 0.6)
 P <- f_tsne_plots(live_raw, clust_res = 0.3)
-P <- f_tsne_plots(sc_raw, clust_res = 0.1)
-P <- f_tsne_plots(sc_aspcs, clust_res = 0.2)
-# 5.36 x 11.3
+
+#P <- f_tsne_plots(sc_raw, clust_res = 0.1)
+#P <- f_tsne_plots(sc_aspcs, clust_res = 0.2)
 
 ##---------------------------------------------##
 ##--------2. PLOT tSNEs VOLUME EXTRACTED-------##
