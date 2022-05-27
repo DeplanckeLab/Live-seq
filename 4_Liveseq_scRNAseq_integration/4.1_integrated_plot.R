@@ -8,12 +8,9 @@ library(reshape2)
 library(Matrix)
 library(cowplot)
 source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 
 ## read Twodata.RNA object
 Twodata.RNA <- readRDS("4_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
-
 
 #### define color code
 gg_color_hue <- function(n) {
