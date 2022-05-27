@@ -6,9 +6,7 @@ library(gridExtra)
 library(scater)
 library(reshape2)
 library(Matrix)
-# source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
+
 # save packages versions 
 writeLines(capture.output(sessionInfo()), "1_preprocessing/sessionInfo.txt")
 
@@ -32,7 +30,7 @@ plot.text( c("number of cells =", ncol(Seu.all) ))  # 2148
 
 ## Add feature meta
 # Load Ensembl 87 annotation, EGFP and mCherry gene was included
-geneName <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+geneName <- read.table(file = paste0(root_dir, "/data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 # reduce the duplicate records
 geneName.uni <- geneName[!duplicated(geneName$ensembl_gene_id),]
 # check all the feature of Liveseq_all object is included in the geneName.uni
@@ -63,7 +61,7 @@ FeatureScatter(Seu.all, feature1 = "percent.mt", feature2 = "percent.rRNA", grou
 
 
 ## save Liveseq_all seurat object
-saveRDS(Seu.all, "1_preprocessing/Seu.all.RDS")
+saveRDS(Seu.all, paste0(root_dir,"/data/Seu.all.RDS"))
 
 
 
