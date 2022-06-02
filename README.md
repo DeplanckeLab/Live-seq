@@ -29,6 +29,8 @@ This repository contains the pipeline to be able to reproduce all figures of the
 
 **10. Downsampling scRNA-seq:** Downsampling scripts for scRNA-seq. (see **2.** for downsampling of Live-seq data)
 
+**./utils** Some utility functions used across the scripts
+
 ## Data
 This repository also contains the data used in the pipeline.
 
