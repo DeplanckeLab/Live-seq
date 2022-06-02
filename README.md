@@ -8,5 +8,5 @@ Live-seq is a single-cell transcriptome profiling approach that preserves cell v
 
 ## Pipeline
 This repository contains the pipeline to be able to reproduce all figures of the paper.
-1. Preprocessing: Create a Seurat object from the count matrix generated after Live-seq sequencing. Some basic single-cell QCs.
+**1. Preprocessing:** Create a Seurat object from the count matrix generated after Live-seq sequencing. Some basic single-cell QCs.
 2. 
