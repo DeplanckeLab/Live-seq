@@ -10,10 +10,13 @@ library(Matrix)
 root_dir <- getwd()
 
 # download count matrix
-download.file(
-  "https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/geo/download/?acc=GSE141064&format=file&file=GSE141064%5Fcount%2Efinal%2Ecsv%2Egz",
-  paste0(root_dir, "/data/GSE141064_count.final.csv.gz")
-)
+file <- paste0(root_dir, "/data/GSE141064_count.final.csv.gz")
+if (~file.exists(file)) {
+  download.file(
+    "https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/geo/download/?acc=GSE141064&format=file&file=GSE141064%5Fcount%2Efinal%2Ecsv%2Egz",
+    file
+  )
+}
 
 # save packages versions 
 writeLines(capture.output(sessionInfo()), "1_preprocessing/sessionInfo.txt")
