@@ -7,15 +7,23 @@ library(scater)
 library(reshape2)
 library(Matrix)
 
+root_dir <- getwd()
+
+# download count matrix
+download.file(
+  "https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/geo/download/?acc=GSE141064&format=file&file=GSE141064%5Fcount%2Efinal%2Ecsv%2Egz",
+  paste0(root_dir, "/data/GSE141064_count.final.csv.gz")
+)
+
 # save packages versions 
 writeLines(capture.output(sessionInfo()), "1_preprocessing/sessionInfo.txt")
 
 ## input data
 # read count_matrix
-count.all <- read.csv("count.final.csv", row.names = 1)
+count.all <- read.csv(paste0(root_dir, "/data/GSE141064_count.final.csv.gz"), row.names = 1)
 dim(count.all)
 # read meta data
-meta.all <- read.csv("meta.final.csv", row.names = 1)
+meta.all <- read.csv(paste0(root_dir, "/data/meta.final.csv"), row.names = 1)
 rownames(meta.all) <- meta.all$sample_ID
 # check the cell sample_ID
 all(colnames(count.all) == rownames(meta.all))
@@ -24,7 +32,7 @@ all(colnames(count.all) == rownames(meta.all))
 ## Create Seurat object
 Seu.all <- CreateSeuratObject(counts =  count.all, meta.data = meta.all , min.cells  = 2, min.features = 1, 
                            project = "Seu.all")
-plot.text( c("number of cells =", ncol(Seu.all) ))  # 2148
+# plot.text( c("number of cells =", ncol(Seu.all) ))  # 2148
 
 
 
