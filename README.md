@@ -10,14 +10,23 @@ W. Chen, O. Guillaume-Gentil, et al., [Genome-wide molecular recording using Liv
 This repository contains the pipeline to be able to reproduce all figures of the paper.
 
 **1. Preprocessing:** Create a Seurat object from the count matrix generated after Live-seq and single-cell sequencing. Some basic single-cell QCs.
+
 **2. Live-seq:** Subset the Seurat object to Live-seq cells only. Generate Live-seq-specific QCs. Downsampling of Live-seq.
+
 **3. scNRA-seq:** Subset the Seurat object to single-cell RNA-seq (scRNA-seq) cells only. Generate scRNA-seq-specific QCs. Downsampling of scRNA-seq.
+
 **4. Live-seq scNRA-seq integration:** Integration of both layers of data using [Seurat's integration pipeline](https://satijalab.org/seurat/articles/integration_introduction.html).
+
 **5. Live-seq with LiveCell imaging:** ??
+
 **6. Clustering:**
+
 **7. Differential expression across cell types:**
+
 **8. Analysis per cell type:**
+
 **9. Differential expression within cell type:**
+
 **10. Downsampling scRNA-seq:** Downsampling scripts for scRNA-seq. (see **2.** for downsampling of Live-seq data)
 
 ## Data
