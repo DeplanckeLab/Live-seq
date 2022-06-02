@@ -19,9 +19,9 @@ root_dir <- find_root(has_file("Live-seq.RProj"))
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
-liveSeq_edgeR_aspc <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
-scRNA_edgeR_res_aspc <- readRDS(paste0(root_dir,"/data/scRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
-sc_DownSampled_edgeR_res_aspc <- readRDS(paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
+liveSeq_edgeR_aspc <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
+scRNA_edgeR_res_aspc <- readRDS(paste0(root_dir,"/data/scRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
+sc_DownSampled_edgeR_res_aspc <- readRDS(paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
 
 ##---------------------------------------------##
 ##------------------COMPARE--------------------##

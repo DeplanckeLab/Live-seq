@@ -30,8 +30,8 @@ f_subsample <- function(all, CT , B, Sampling, correct_batch = T ){
 }
 
 ## Seurat objects 
-scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.Rds"))
-Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.Rds"))
+scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.rds"))
+Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.rds"))
 
 ##---------------------------------------------##
 ##--------------Compute clustering-------------##
@@ -69,8 +69,8 @@ levels(Liveseq_only$MODIFIED_RNA_snn_res.0.2) <- c("Raw264.7_not_treated", "ASPC
 Liveseq_only$MODIFIED_RNA_snn_res.0.2 <- as.character(Liveseq_only$MODIFIED_RNA_snn_res.0.2)
 Liveseq_only$MODIFIED_RNA_snn_res.0.2[colnames(live_aspcs_all)] <- as.character(live_aspcs_all$RNA_snn_res.0.6)
 
-saveRDS(scRNAseq_only, paste0(root_dir,"/data/scRNAseq_only.Rds"))
-saveRDS(Liveseq_only, paste0(root_dir,"/data/Liveseq_only.Rds"))
+saveRDS(scRNAseq_only, paste0(root_dir,"/data/scRNAseq_only.rds"))
+saveRDS(Liveseq_only, paste0(root_dir,"/data/Liveseq_only.rds"))
 
 ##---------------------------------------------##
 ##--------Calculate Adjusted Rand Index--------##

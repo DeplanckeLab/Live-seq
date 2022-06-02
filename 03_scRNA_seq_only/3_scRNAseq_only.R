@@ -15,7 +15,7 @@ setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 #######################
 
-Seu.all <- readRDS("1_preprocessing/Seu.all.RDS")
+Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
 
 
 
@@ -121,7 +121,7 @@ p3 <- DimPlot(scRNA, reduction = "tsne", group.by = "Batch")
 p4<- FeaturePlot(scRNA, reduction = "tsne", features  = "nFeature_RNA" )
 plot_grid(p1,p2,p3, p4)
 
-saveRDS(scRNA  ,"3_scRNA_seq_only/scRNAseq.rds")
+saveRDS(scRNA  ,"03_scRNA_seq_only/scRNAseq.rds")
 
 
 
@@ -370,7 +370,7 @@ p5 <- DimPlot(scRNA.integrated, reduction = "tsne", group.by = "integrated_snn_r
 plot_grid(p1, p2, p3,p4,p5, align = "hv", axis = "lrtb")
 
 
-saveRDS(scRNA.integrated, "3_scRNA_seq_only/scRNAseq_batch_corrected.rds")
+saveRDS(scRNA.integrated, "03_scRNA_seq_only/scRNAseq_batch_corrected.rds")
 
 # scRNA.integrated <-  readRDS("scRNAseq_batch_corrected.rds")
 
@@ -413,7 +413,7 @@ top10 <- subset(top10, p_val_adj < 0.05)
 DoHeatmap(scRNA.integrated, features = top10$gene)  + 
   scale_y_discrete(labels= rev(top10$genesymbol))
 
-write.csv(scRNA.markers, "3_scRNA_seq_only/DEs.scRNA.csv")
+write.csv(scRNA.markers, "03_scRNA_seq_only/DEs.scRNA.csv")
 # write.csv(scRNA.markers.allGene, "DEs.scRNA.allGenes.csv")
 
 

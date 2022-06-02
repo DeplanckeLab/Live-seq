@@ -13,12 +13,12 @@ library(viridis)
 # Set working directory
 setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 # save packages versions 
-writeLines(capture.output(sessionInfo()), "2_Live_seq_only/sessionInfo.txt")
+writeLines(capture.output(sessionInfo()), "02_Live_seq_only/sessionInfo.txt")
 
 
 ## make Live-seq object
 # read all Seu.all
-Seu.all <- readRDS("1_preprocessing/Seu.all.RDS")
+Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
 # subset Liveseq
 Liveseq <- subset(Seu.all, subset = (sampling_type == "Live_seq" & nFeature_RNA > 1000) )
 dim(Liveseq)
@@ -200,7 +200,7 @@ p3 <- DimPlot(Liveseq, reduction = "tsne", group.by = "Batch")
 plot_grid(p1,p2,p3)
 
 ## save object
-saveRDS(Liveseq, "2_Live_seq_only/Liveseq.rds")
+saveRDS(Liveseq, "02_Live_seq_only/Liveseq.rds")
 
 
 
@@ -230,7 +230,7 @@ p <-DoHeatmap(Liveseq, features = top10$gene) +
 p
 
 # save DE genes
-write.csv(Liveseq.markers, "2_Live_seq_only/DEs.Liveseq_only.csv")
+write.csv(Liveseq.markers, "02_Live_seq_only/DEs.Liveseq_only.csv")
           
           
 
@@ -258,7 +258,7 @@ p <-DoHeatmap(Liveseq, features = top10$gene) +
   scale_fill_gradientn(colors = c("blue", "white", "red")) 
 p
 # save DE 
-write.csv(Liveseq_condition.markers, "2_Live_seq_only/DEs.Liveseq_per_celltype_treatment.csv")
+write.csv(Liveseq_condition.markers, "02_Live_seq_only/DEs.Liveseq_per_celltype_treatment.csv")
 
 
 
@@ -382,7 +382,7 @@ plot_grid(p1, p2)
 
 downsample.new <- downsample.list
 
-pdf("2_Live_seq_only/downsampling.intermediate.pdf", width = 10)
+pdf("02_Live_seq_only/downsampling.intermediate.pdf", width = 10)
 for (i in 1:length(downsample.new)) {
   objectToPlot <- downsample.new[[i]] 
   # p1 <- DimPlot(objectToPlot, reduction = "umap")
@@ -412,5 +412,5 @@ for (i in 1:length(downsample.new)) {
 
 dev.off()
 
-saveRDS(downsample.new, "2_Live_seq_only/downsample.new.rds")
+saveRDS(downsample.new, "02_Live_seq_only/downsample.new.rds")
 # downsample.list <- readRDS("downsample.list.rds")

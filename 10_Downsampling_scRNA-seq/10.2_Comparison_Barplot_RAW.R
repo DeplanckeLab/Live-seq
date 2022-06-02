@@ -18,9 +18,9 @@ library(ggbreak)
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
 root_dir <- find_root(has_file("Live-seq.RProj"))
-liveSeq_edgeR_raw <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_RAW-NTvsLPSTreated.Rds"))
-scRNA_edgeR_res_raw <- readRDS(paste0(root_dir,"/data/scRNAeq_edgeR_res_RAW-NTvsLPSTreated.Rds"))
-sc_DownSampled_edgeR_res_raw <- readRDS(paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_RAW_NTvsLPSTreated.Rds"))
+liveSeq_edgeR_raw <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_RAW-NTvsLPSTreated.rds"))
+scRNA_edgeR_res_raw <- readRDS(paste0(root_dir,"/data/scRNAeq_edgeR_res_RAW-NTvsLPSTreated.rds"))
+sc_DownSampled_edgeR_res_raw <- readRDS(paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_RAW_NTvsLPSTreated.rds"))
 
 ##---------------------------------------------##
 ##------------------COMPARE--------------------##

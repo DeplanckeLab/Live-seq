@@ -13,10 +13,10 @@ library(viridis)
 setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 
 ###### version control
-writeLines(capture.output(sessionInfo()), "3_scRNA_seq_only/sessionInfo.txt")
+writeLines(capture.output(sessionInfo()), "03_scRNA_seq_only/sessionInfo.txt")
 #######################
 
-scRNA <- readRDS("3_scRNA_seq_only/scRNAseq.rds")
+scRNA <- readRDS("03_scRNA_seq_only/scRNAseq.rds")
 
 mean(scRNA$nFeature_RNA)    ### nFeature mean = 8328.863
 
@@ -25,9 +25,9 @@ cells.scRNA.exp7 <- as.character(subset(scRNA, Batch == "scRNA")$sample_name)
 cells.scRNA.exp8_8 <- as.character(subset(scRNA, Batch == "8_8")$sample_name)
 cells.scRNA.exp9_1 <- as.character(subset(scRNA, Batch == "9_1")$sample_name)
 
-write.csv(cells.scRNA.exp7, "3_scRNA_seq_only/cells.scRNA.exp7.csv")
-write.csv(cells.scRNA.exp8_8, "3_scRNA_seq_only/cells.scRNA.exp8_8.csv")
-write.csv(cells.scRNA.exp9_1, "3_scRNA_seq_only/cells.scRNA.exp9_1.csv")
+write.csv(cells.scRNA.exp7, "03_scRNA_seq_only/cells.scRNA.exp7.csv")
+write.csv(cells.scRNA.exp8_8, "03_scRNA_seq_only/cells.scRNA.exp8_8.csv")
+write.csv(cells.scRNA.exp9_1, "03_scRNA_seq_only/cells.scRNA.exp9_1.csv")
 
 #### get the default color of ggplot2. n is the number of colors needed. 
 gg_color_hue <- function(n) {
@@ -55,7 +55,7 @@ p <- p +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
                 panel.background = element_blank(), axis.line = element_line(colour = "black")) +
   scale_y_continuous(expand = c(0, 0), limits = c(0,700))
 p
-# ggsave("3_scRNA_seq_only/sample_number.pdf", width = 1, height = 2, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/sample_number.pdf", width = 1, height = 2, useDingbats=FALSE)
 
 
 ## plot the basic QC, group by batch or sample type
@@ -72,7 +72,7 @@ plist <- lapply(c("nFeature_RNA", "nCount_RNA", "percent.mt", "percent.rRNA", "p
 
 plot_grid(plotlist = plist,  ncol = 8, align = "hv", axis = "tblr")
 
-# ggsave("3_scRNA_seq_only/QC_noGroup.pdf", width = 12, height = 1.6, useDingbats=FALSE )
+# ggsave("03_scRNA_seq_only/QC_noGroup.pdf", width = 12, height = 1.6, useDingbats=FALSE )
 
 
 
@@ -91,7 +91,7 @@ plist <- lapply(c("input.reads","uniquely.mapped.rate","intron.mapped.rate",  "n
   return(p)
 })
 plot_grid(plotlist = plist, align = "hv", axis = "lrtb")
-# ggsave("3_scRNA_seq_only/QC_celltype.pdf", width = 5, height = 6, useDingbats=FALSE )
+# ggsave("03_scRNA_seq_only/QC_celltype.pdf", width = 5, height = 6, useDingbats=FALSE )
 
 
 ## plot scatter plot 
@@ -99,7 +99,7 @@ p1 <- FeatureScatter(scRNA, feature1 = "nCount_RNA", feature2 = "nFeature_RNA", 
 p2 <- FeatureScatter(scRNA, feature1 = "cDNA_concentration", feature2 = "nFeature_RNA", group.by = "celltype_treatment", pt.size = 0.3, cols = color.celltype) 
 
 plot_grid(p1,p2, align = "hv", axis = "lrtb")
-# ggsave("3_scRNA_seq_only/scatter_cDNA,nCount_nFeature_byCelltype.pdf", width = 6, height = 1.5, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/scatter_cDNA,nCount_nFeature_byCelltype.pdf", width = 6, height = 1.5, useDingbats=FALSE)
 
 
 ## save the name of each cell type and treatment
@@ -110,8 +110,8 @@ RAWLpsN.cell <- colnames(subset(scRNA, celltype_treatment %in% c("Raw264.7_not_t
 RAWLpsP.cell <- colnames(subset(scRNA, celltype_treatment %in% c("Raw264.7_LPS_treated")))
 
 ## save the name of each cell type and treatment
-save(ASPC.cell,ASPCtreated.cell, IBA.cell,RAWLpsN.cell,RAWLpsP.cell, file = "3_scRNA_seq_only/cells.types.RData")
-write(c(ASPC.cell, " ", ASPCtreated.cell, " ",  IBA.cell," " ,RAWLpsN.cell," ", RAWLpsP.cell), "3_scRNA_seq_only/cells.types.txt", sep=" ")
+save(ASPC.cell,ASPCtreated.cell, IBA.cell,RAWLpsN.cell,RAWLpsP.cell, file = "03_scRNA_seq_only/cells.types.RData")
+write(c(ASPC.cell, " ", ASPCtreated.cell, " ",  IBA.cell," " ,RAWLpsN.cell," ", RAWLpsP.cell), "03_scRNA_seq_only/cells.types.txt", sep=" ")
 
 
 ### compare the cluster with ground trust.
@@ -124,7 +124,7 @@ p <- ggplot(scRNA@meta.data,aes(x=ident,fill=celltype_treatment))+
   geom_text(aes(label=stat(count)),stat="count",position=position_stack(0.5), size=3) +
   xlab("cluster") + scale_fill_manual(values = color.celltype)
 p
-ggsave("3_scRNA_seq_only/evaluate_cluster_RNA.res.0.3.pdf", width = 2.6, height = 1.8)
+ggsave("03_scRNA_seq_only/evaluate_cluster_RNA.res.0.3.pdf", width = 2.6, height = 1.8)
 
 
 ## umap plots
@@ -136,7 +136,7 @@ p2 <- DimPlot(scRNA, reduction = "umap", group.by = "celltype_treatment",label =
 p3 <- FeaturePlot(scRNA, reduction  = "umap", features = "nFeature_RNA", pt.size = 0.3)
 
 plot_grid(p1, p2, p3, align = "hv", axis = "lrtb", ncol = 3)
-# ggsave("3_scRNA_seq_only/cluster_umap_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/cluster_umap_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
 
 
 
@@ -149,7 +149,7 @@ p2 <- DimPlot(scRNA, reduction = "tsne", group.by = "celltype_treatment",label =
 p3 <- FeaturePlot(scRNA, reduction  = "tsne", features = "nFeature_RNA", pt.size = 0.3)
 
 plot_grid(p1, p2, p3, align = "hv", axis = "lrtb", ncol = 3)
-ggsave("3_scRNA_seq_only/cluster_tsne_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
+ggsave("03_scRNA_seq_only/cluster_tsne_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
 
 
 
@@ -166,7 +166,7 @@ p5 <- DimPlot(scRNA, reduction = "tsne", group.by = "celltype_treatment",label =
 
 
 plot_grid(p1, p2, p3,p4,p5, align = "hv", axis = "lrtb", ncol = 3)
-# ggsave("3_scRNA_seq_only/cluster_tsne_different_res.pdf", width = 7.1, height = 3.8, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/cluster_tsne_different_res.pdf", width = 7.1, height = 3.8, useDingbats=FALSE)
 
 
 
@@ -179,13 +179,13 @@ p2 <- DimPlot(scRNA, reduction = "pca", group.by = "celltype_treatment",label = 
 p3 <- FeaturePlot(scRNA, reduction  = "pca", features = "nFeature_RNA", pt.size = 0.3)
 
 plot_grid(p1, p2, p3, align = "hv", axis = "lrtb", ncol = 3)
-# ggsave("3_scRNA_seq_only/cluster_pca_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/cluster_pca_RNA.res.0.3.pdf", width = 7.1, height = 1.8, useDingbats=FALSE)
 
 
 
 ####################### plot the batch corrected scRNA data
 
-scRNA.integrated <- readRDS("3_scRNA_seq_only/scRNAseq_batch_corrected.rds")
+scRNA.integrated <- readRDS("03_scRNA_seq_only/scRNAseq_batch_corrected.rds")
 
 ## reorder the celltype_treatment factor 
 scRNA.integrated$celltype_treatment <- factor(scRNA.integrated$celltype_treatment , levels = c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated","Raw264.7_not_treated", "Raw264.7_LPS_treated"))
@@ -210,7 +210,7 @@ p8 <- FeaturePlot(scRNA.integrated, reduction  = "tsne",  features = "G2M.Score"
 p9 <- FeaturePlot(scRNA.integrated, reduction  = "tsne",  features = "S.Score",pt.size = 0.15)
 
 plot_grid(p1, p2, p3,p4,p5,p6,p7,p8,p9, align = "hv", axis = "lrtb", ncol = 3)
-# ggsave("3_scRNA_seq_only/cluster_tsne_batchCorrected.pdf", width = 9.6, height = 7.2, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/cluster_tsne_batchCorrected.pdf", width = 9.6, height = 7.2, useDingbats=FALSE)
 
 
 ### compare the cluster with ground trust.
@@ -230,7 +230,7 @@ p <- p +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
   ylab("Number of cells") +
   xlab("Cluster")
 p
-# ggsave("3_scRNA_seq_only/evaluate_cluster_batchCorrected.pdf", width = 3, height = 2)
+# ggsave("03_scRNA_seq_only/evaluate_cluster_batchCorrected.pdf", width = 3, height = 2)
 
 ##### plot the percentage
 p <- ggplot(scRNA.integrated@meta.data,aes(x=ident,fill=celltype_treatment))+
@@ -246,7 +246,7 @@ p <- p +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
   xlab("Cluster") 
 p
 
-# ggsave("3_scRNA_seq_only/evaluate_cluster_batchCorrected_percent.pdf", width = 3, height = 2)
+# ggsave("03_scRNA_seq_only/evaluate_cluster_batchCorrected_percent.pdf", width = 3, height = 2)
 
 
 
@@ -255,7 +255,7 @@ p
 
 ## plot heatmap of top DE of scRNA-seq data
 
-scRNA.markers <- read.csv("3_scRNA_seq_only/DEs.scRNA.csv")
+scRNA.markers <- read.csv("03_scRNA_seq_only/DEs.scRNA.csv")
 ## the batch corretion incorporated DE analyis, refer to scRNA.markers.celltype.edgeR.csv below
 # scRNA.markers <- read.csv("../LiveSeq_vsscRNAseq_9.09.21/scRNA.markers.celltype.edgeR.csv")
 
@@ -298,7 +298,7 @@ p <- DoHeatmap(scRNA.integrated, features = as.character(top10$gene) , group.col
   scale_x_discrete(labels=NULL)  +
   scale_fill_gradientn(colors = viridis(3)) 
 p
-# ggsave("3_scRNA_seq_only/heatmap_scRNA_batch_corrected_DE.pdf", width = 5, height = 5, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/heatmap_scRNA_batch_corrected_DE.pdf", width = 5, height = 5, useDingbats=FALSE)
 
 ## plot the color bar of heatmap
 ## Retrieve values for axis labels in ggplot2
@@ -311,7 +311,7 @@ sampleorder.x <- ggplot_build(p)$layout$panel_params[[1]]$x$limits
 
 color.x <- rep("white", length(sampleorder.x))
 
-load("3_scRNA_seq_only/cells.types.RData")
+load("03_scRNA_seq_only/cells.types.RData")
 color.x[match(ASPC.cell, sampleorder.x)]  <- color.celltype[1]
 color.x[match(ASPCtreated.cell, sampleorder.x)]  <- color.celltype[2]
 color.x[match(IBA.cell, sampleorder.x)]  <- color.celltype[3]
@@ -327,7 +327,7 @@ ggplot(df, aes(x=sample.name, y=1, fill=sample.name))+
   geom_bar(stat="identity", color=color.x)+
   scale_fill_manual(values=color.x) + 
   theme_nothing()
-# ggsave("3_scRNA_seq_only/heatmap_scRNA_batch_corrected_DE_colorBar.pdf", width = 5, height = 0.5, useDingbats=FALSE )
+# ggsave("03_scRNA_seq_only/heatmap_scRNA_batch_corrected_DE_colorBar.pdf", width = 5, height = 0.5, useDingbats=FALSE )
 
 
 
@@ -359,11 +359,11 @@ FeaturePlot(object = scRNA.integrated, reduction = "tsne", features = symbol.to.
 genesToPlot <- c("Dpep1", "Thy1", "Gpx3","Sfrp2" ,"Mycn","Tnf" )
 plist <- lapply(genesToPlot, function(x) FeaturePlot(object = scRNA.integrated, reduction = "umap", features = symbol.to.ensembl(x) ))
 plot_grid(plotlist=plist)
-# ggsave("3_scRNA_seq_only/gene_expression_umap.pdf", width = 7.2, height = 4, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/gene_expression_umap.pdf", width = 7.2, height = 4, useDingbats=FALSE)
 
 plist <- lapply(genesToPlot, function(x) FeaturePlot(object = scRNA.integrated, reduction =  "tsne", features = symbol.to.ensembl(x)  ))
 plot_grid(plotlist=plist)
-# ggsave("3_scRNA_seq_only/gene_expression_tsne.pdf", width = 7.2, height = 4, useDingbats=FALSE)
+# ggsave("03_scRNA_seq_only/gene_expression_tsne.pdf", width = 7.2, height = 4, useDingbats=FALSE)
 
 
 

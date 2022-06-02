@@ -77,8 +77,8 @@ heatmap_and_save <- function(enr_res, dbp, n_top = 10, Term_to_select = NULL){
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
 
-liveseq_edgeR_res <- readRDS( file = paste0(root_dir, "/data/Liveseq_edgeR_Clust-vs-Rest.Rds"))
-scRNA_edgeR_res <- readRDS(file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest.Rds"))
+liveseq_edgeR_res <- readRDS( file = paste0(root_dir, "/data/Liveseq_edgeR_Clust-vs-Rest.rds"))
+scRNA_edgeR_res <- readRDS(file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest.rds"))
 
 ##---------------------------------------------##
 ##----------------COMPUTE GO RES---------------##

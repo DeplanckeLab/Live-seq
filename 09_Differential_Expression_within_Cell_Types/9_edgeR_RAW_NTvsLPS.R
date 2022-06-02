@@ -27,9 +27,9 @@ source(paste0(root_dir, "/utils/myFunctions_DEwithinCT.R"))
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
-live_raw <- readRDS(paste0(root_dir, "/data/Liveseq_RAW_seu.Rds"))
+live_raw <- readRDS(paste0(root_dir, "/data/Liveseq_RAW_seu.rds"))
 live_raw <- subset(live_raw, Batch != "5Reseq")
-sc_raw <- readRDS(paste0(root_dir, "/data/scRNAseq_RAW_seu.Rds"))
+sc_raw <- readRDS(paste0(root_dir, "/data/scRNAseq_RAW_seu.rds"))
 
 ##---------------------------------------------##
 ##---------------RUN DE ANALYSIS---------------##
@@ -57,11 +57,11 @@ liveSeq_edgeR_raw$table$pct_LPS <- prop_LPS[rownames(liveSeq_edgeR_raw$table)]
 liveSeq_edgeR_raw$table$high_pct <- F
 liveSeq_edgeR_raw$table$high_pct[liveSeq_edgeR_raw$table$pct_NT > 0.15 | liveSeq_edgeR_raw$table$pct_LPS > 0.15] <- T
 
-saveRDS(liveSeq_edgeR_raw, "~/SVRAW1/prainer/FluidFM_exp5_Wanze/Participation_Manuscript_2021-22/Figures_Liveseq/DE-EdgeR_and_Downsampling/FULLData/RAW/liveseq_edgeR_res_RAW-Not-vs-LPSTreated.Rds")
-saveRDS(scRNA_edgeR_res_raw, "~/SVRAW1/prainer/FluidFM_exp5_Wanze/Participation_Manuscript_2021-22/Figures_Liveseq/DE-EdgeR_and_Downsampling/FULLData/RAW/scRNAeq_edgeR_res_RAW-Not-vs-LPSTreated.Rds")
+saveRDS(liveSeq_edgeR_raw, "~/SVRAW1/prainer/FluidFM_exp5_Wanze/Participation_Manuscript_2021-22/Figures_Liveseq/DE-EdgeR_and_Downsampling/FULLData/RAW/liveseq_edgeR_res_RAW-Not-vs-LPSTreated.rds")
+saveRDS(scRNA_edgeR_res_raw, "~/SVRAW1/prainer/FluidFM_exp5_Wanze/Participation_Manuscript_2021-22/Figures_Liveseq/DE-EdgeR_and_Downsampling/FULLData/RAW/scRNAeq_edgeR_res_RAW-Not-vs-LPSTreated.rds")
 
-saveRDS(liveSeq_edgeR_raw, paste0(root_dir, "/data/liveseq_edgeR_res_RAW_NTvsLPSTreated.Rds"))
-saveRDS(scRNA_edgeR_res_raw, paste0(root_dir, "/data/scRNAeq_edgeR_res_RAW_NTvsLPSTreated.Rds"))
+saveRDS(liveSeq_edgeR_raw, paste0(root_dir, "/data/liveseq_edgeR_res_RAW_NTvsLPSTreated.rds"))
+saveRDS(scRNA_edgeR_res_raw, paste0(root_dir, "/data/scRNAeq_edgeR_res_RAW_NTvsLPSTreated.rds"))
 
 ##---------------------------------------------##
 ##-------------PLOT COMPARAISON FC-------------##

@@ -28,7 +28,7 @@ library(dplyr)
 root_dir <- find_root(has_file("Live-seq.RProj"))
 source(paste0(root_dir, "/utils/utils.R"))
 
-Liveseq_all <- readRDS(paste0(root_dir, "/data/Liveseq_all_fluoresecene_added.3_7.5h.RDS"))
+Liveseq_all <- readRDS(paste0(root_dir, "/data/Liveseq_all_fluoresecene_added.3_7.5h.rds"))
 Liveseq_all$uniquely.mapped.rate <- Liveseq_all$uniquely.mapped / Liveseq_all$input.reads
 
 scRNAseq_all <- readRDS("~/SVRAW1/wchen/data_analysis/Live_seq/final_analysis_V3/scRNAseq_only/scRNAseq.rds")
@@ -74,17 +74,17 @@ live_iba <- live_iba %>% RunTSNE(dims = 1:10, perplexity = 10)
 
 
 saveRDS(live_aspcs, 
-        file = paste0(root_dir, "/data/Liveseq_ASPCs_seu.Rds"))
+        file = paste0(root_dir, "/data/Liveseq_ASPCs_seu.rds"))
 saveRDS(sc_aspcs, 
-        file =  paste0(root_dir, "/data/scRNAseq_ASPCs_seu.Rds"))
+        file =  paste0(root_dir, "/data/scRNAseq_ASPCs_seu.rds"))
 
 saveRDS(live_raw, 
-        file =  paste0(root_dir, "/data/Liveseq_RAW_seu.Rds"))
+        file =  paste0(root_dir, "/data/Liveseq_RAW_seu.rds"))
 saveRDS(sc_raw, 
-        file =  paste0(root_dir, "/data/scRNAseq_RAW_seu.Rds"))
+        file =  paste0(root_dir, "/data/scRNAseq_RAW_seu.rds"))
 
 saveRDS(live_iba, 
-        file =  paste0(root_dir, "/data/Liveseq_IBA_seu.Rds"))
+        file =  paste0(root_dir, "/data/Liveseq_IBA_seu.rds"))
 
 ##---------------------------------------------##
 ##------------1. PLOT tSNEs METADATA-----------##

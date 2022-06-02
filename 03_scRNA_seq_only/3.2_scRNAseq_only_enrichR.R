@@ -17,7 +17,7 @@ dbs <- c("GO_Molecular_Function_2015", "GO_Cellular_Component_2015", "GO_Biologi
 
 ############### for scRNA-seq data  ##########
 ###########################################
-scRNA.markers <- read.csv("3_scRNA_seq_only/DEs.scRNA.csv")
+scRNA.markers <- read.csv("03_scRNA_seq_only/DEs.scRNA.csv")
 
 ## the batch corretion incorporated DE analyis, refer to scRNA.markers.celltype.edgeR.csv below
 # scRNA.markers <- read.csv("../LiveSeq_vsscRNAseq_9.09.21/scRNA.markers.celltype.edgeR.csv")
@@ -118,7 +118,7 @@ library(dendsort)
 # mat_cluster_rows <- sort_hclust(hclust(dist(enrich_top5)))
 # plot(mat_cluster_rows, main = "Sorted Dendrogram", xlab = "", sub = "")
 # dev.off()
-pdf("3_scRNA_seq_only/enrichr.GoBP.pdf", width = 6, height = 3.6)
+pdf("03_scRNA_seq_only/enrichr.GoBP.pdf", width = 6, height = 3.6)
 pheatmap(
   mat               = enrich_top5,
   color             = viridis(length(mat_breaks) - 1),
@@ -141,7 +141,7 @@ pheatmap(
 # pheatmap(  enrich_top5, scale = "none", color = viridis(100) , fontsize = 7,   breaks            = mat_breaks,)
 dev.off()
 
-write.csv(enrich_top5 , "3_scRNA_seq_only/enrichr.GoBP.csv")
+write.csv(enrich_top5 , "03_scRNA_seq_only/enrichr.GoBP.csv")
 
 
 
@@ -208,7 +208,7 @@ plot(mat_cluster_cols, main = "Sorted Dendrogram", xlab = "", sub = "")
 mat_cluster_rows <- sort_hclust(hclust(dist(enrich_top5)))
 plot(mat_cluster_rows, main = "Sorted Dendrogram", xlab = "", sub = "")
 dev.off()
-pdf("3_scRNA_seq_only/enrichr.MGA.pdf", width = 2.8, height = 3)
+pdf("03_scRNA_seq_only/enrichr.MGA.pdf", width = 2.8, height = 3)
 pheatmap(
   mat               = enrich_top5,
   color             = viridis(length(mat_breaks) - 1),
@@ -230,7 +230,7 @@ pheatmap(
 # pheatmap(  enrich_top5, scale = "none", color = viridis(100) , fontsize = 7,   breaks            = mat_breaks,)
 dev.off()
 
-write.csv(enrich_top5 , "3_scRNA_seq_only/enrichr.MGA.csv")
+write.csv(enrich_top5 , "03_scRNA_seq_only/enrichr.MGA.csv")
 
 
 

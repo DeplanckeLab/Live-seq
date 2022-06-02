@@ -122,8 +122,8 @@ f_downsample <- function(i, dataset_to_sample = subset_sc_aspc,
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
 
-live_aspcs <- readRDS(paste0(root_dir,"/data/Liveseq_ASPCs_seu.Rds"))
-sc_aspcs <- readRDS(paste0(root_dir, "/data/scRNAseq_ASPCs_seu.Rds"))
+live_aspcs <- readRDS(paste0(root_dir,"/data/Liveseq_ASPCs_seu.rds"))
+sc_aspcs <- readRDS(paste0(root_dir, "/data/scRNAseq_ASPCs_seu.rds"))
 
 ##---------------------------------------------##
 ##-------------------EXPLORE-------------------##
@@ -217,12 +217,12 @@ sc_DownSampled_edgeR_res_aspc$table$pct_DMI <- prop_DMI[rownames(sc_DownSampled_
 sc_DownSampled_edgeR_res_aspc$table$high_pct <- F
 sc_DownSampled_edgeR_res_aspc$table$high_pct[sc_DownSampled_edgeR_res_aspc$table$pct_NT > 0.15 | sc_DownSampled_edgeR_res_aspc$table$pct_DMI > 0.15] <- T
 
-saveRDS(sc_DownSampled_edgeR_res_aspc, paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
+saveRDS(sc_DownSampled_edgeR_res_aspc, paste0(root_dir,"/data/DOWNSAMPLEDscRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
 
 ##---------------------------------------------##
 ##----------------PLOT logFC COMP---------------##
 ##---------------------------------------------##
-liveSeq_edgeR_aspc <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
+liveSeq_edgeR_aspc <- readRDS(paste0(root_dir,"/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
 
 ## Extended data figure 2 x (right)
 P_t <- f_plot_CT(liveSeq_edgeR_aspc$table, sc_DownSampled_edgeR_res_aspc$table) #10845

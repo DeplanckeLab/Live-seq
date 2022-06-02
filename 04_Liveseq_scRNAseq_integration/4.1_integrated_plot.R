@@ -10,7 +10,7 @@ library(cowplot)
 source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
 
 ## read Twodata.RNA object
-Twodata.RNA <- readRDS("4_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
+Twodata.RNA <- readRDS("04_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
 
 #### define color code
 gg_color_hue <- function(n) {
@@ -61,7 +61,7 @@ countsum <-  data.frame( cells.scRNA=  rowMeans(raw.data.sub[, cells.scRNA ] ),
 
 )
 
-write.csv(countsum, "4_Liveseq_scRNAseq_integration/mimicBulk_gene_expression_normalized.csv")
+write.csv(countsum, "04_Liveseq_scRNAseq_integration/mimicBulk_gene_expression_normalized.csv")
 
 
 
@@ -132,7 +132,7 @@ countsum.plot <- countsum.plot[ rowMeans(countsum.plot) >0.01 , ]
 GGally::ggpairs(countsum.plot,
                 lower = list(continuous = GGscatterPlot),
                 upper = list(continuous = wrap("cor", method= "spearman")))
-# ggsave("4_Liveseq_scRNAseq_integration/Livesesq_scRNAseq_cor.pdf", width = 10, height = 10, useDingbats=F)
+# ggsave("04_Liveseq_scRNAseq_integration/Livesesq_scRNAseq_cor.pdf", width = 10, height = 10, useDingbats=F)
 
 
 ## evaluate_cluster_RNA
@@ -141,7 +141,7 @@ p <- ggplot(Twodata.RNA@meta.data,aes(x=RNA.ident,fill=celltype_treatment))+
   geom_text(aes(label=stat(count)),stat="count",position=position_stack(0.5)) +
   xlab("cluster") + scale_fill_manual(values = color.celltype)
 p
-# ggsave("4_Liveseq_scRNAseq_integration/evaluate_cluster_RNA.pdf", width = 3, height = 2)
+# ggsave("04_Liveseq_scRNAseq_integration/evaluate_cluster_RNA.pdf", width = 3, height = 2)
 
 ## dimplot
 p1 <- DimPlot(Twodata.RNA, reduction = "umap", pt.size = 0.3, label = TRUE, repel = TRUE, cols = color.celltype ) + NoLegend()
@@ -157,7 +157,7 @@ p5 <- FeaturePlot(Twodata.RNA, reduction  = "umap", features = "nCount_RNA", pt.
 
 
 plot_grid(p1, p3, p2,p4,p5, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-ggsave("4_Liveseq_scRNAseq_integration/cluster_umap_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
+ggsave("04_Liveseq_scRNAseq_integration/cluster_umap_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
 
 
 
@@ -173,7 +173,7 @@ p4 <- FeaturePlot(Twodata.RNA, reduction  = "tsne", features = "nFeature_RNA", p
 p5 <- FeaturePlot(Twodata.RNA, reduction  = "tsne", features = "nCount_RNA", pt.size = 0.05)
 
 plot_grid(p1, p3, p2,p4,p5, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-# ggsave("4_Liveseq_scRNAseq_integration/cluster_tsne_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
+# ggsave("04_Liveseq_scRNAseq_integration/cluster_tsne_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
 
 ## plot cell cycle
 s.genes <- readRDS("s.genes.mouse.rds")    
@@ -191,7 +191,7 @@ p9 <- DimPlot(Twodata.RNA, reduction = "tsne", group.by = "Batch", pt.size = 0.0
 
 plot_grid(p6,p7,p8,p9, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
 
-# ggsave("4_Liveseq_scRNAseq_integration/cluster_tsne_RNA2.pdf", width = 5.4, height = 4, useDingbats=F )
+# ggsave("04_Liveseq_scRNAseq_integration/cluster_tsne_RNA2.pdf", width = 5.4, height = 4, useDingbats=F )
 
 
 
@@ -207,7 +207,7 @@ p4 <- FeaturePlot(Twodata.RNA, reduction  = "pca", features = "nFeature_RNA", pt
 p5 <- FeaturePlot(Twodata.RNA, reduction  = "pca", features = "nCount_RNA", pt.size = 0.3)
 
 plot_grid(p1, p3, p2,p4,p5, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-# ggsave("4_Liveseq_scRNAseq_integration/cluster_pca_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
+# ggsave("04_Liveseq_scRNAseq_integration/cluster_pca_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
 
 
 ## mCherry and Tnf scatter plot
@@ -215,7 +215,7 @@ p1 <- FeatureScatter(subset(Twodata.RNA, Cell_type == "Raw264.7_G9"), feature1 =
 p2 <- FeatureScatter(subset(Twodata.RNA, Cell_type == "Raw264.7_G9" & sampling_type == "Live_seq"), feature1 = "mCherry", feature2 = symbol.to.ensembl("Tnf") , group.by = "treatment", pt.size = 0.3, cols = color.celltype[3:2])  + ylab("Tnf")
 
 plot_grid(p1,p2, align = "vh", axis = "lrtb")
-# ggsave("4_Liveseq_scRNAseq_integration/Tnf_mcherry_cor_RNA.pdf", width=5.4, height = 2, useDingbats=F)
+# ggsave("04_Liveseq_scRNAseq_integration/Tnf_mcherry_cor_RNA.pdf", width=5.4, height = 2, useDingbats=F)
 
 
 
@@ -225,7 +225,7 @@ plot_grid(p1,p2, align = "vh", axis = "lrtb")
 
 
 
-Twodata.integrated <- readRDS("4_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
+Twodata.integrated <- readRDS("04_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
 DefaultAssay(Twodata.integrated) <- "RNA"
 
 s.genes <- readRDS("s.genes.mouse.rds")    
@@ -255,7 +255,7 @@ p1 <- ggplot(Twodata.integrated@meta.data,aes(x=interated.ident,fill=celltype_tr
   geom_text(aes(label=stat(count)),stat="count",position=position_stack(0.5)) +
   xlab("cluster") + scale_fill_manual(values = color.celltype)
 p1
-# ggsave("4_Liveseq_scRNAseq_integration/evaluate_cluster_intergrated.pdf", width = 3, height = 2)
+# ggsave("04_Liveseq_scRNAseq_integration/evaluate_cluster_intergrated.pdf", width = 3, height = 2)
 
 
 
@@ -281,10 +281,10 @@ p9 <- DimPlot(Twodata.integrated, reduction = "tsne", group.by = "Batch", pt.siz
 
 
 plot_grid(p1, p3, p2,p4,p5,p6 , ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-# ggsave("4_Liveseq_scRNAseq_integration/cluster_tsne_intergrated.pdf", width = 6.4, height = 6.6, useDingbats=F )
+# ggsave("04_Liveseq_scRNAseq_integration/cluster_tsne_intergrated.pdf", width = 6.4, height = 6.6, useDingbats=F )
 
 plot_grid(p7, p8, p9, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-# ggsave("4_Liveseq_scRNAseq_integration/cluster_tsne_intergrated2.pdf", width = 6.4, height = 4.4, useDingbats=F )
+# ggsave("04_Liveseq_scRNAseq_integration/cluster_tsne_intergrated2.pdf", width = 6.4, height = 4.4, useDingbats=F )
 
 
 
@@ -308,7 +308,7 @@ p2 <- ggplot(tSNE.embedding %>% filter(sampling_type == "scRNA"), aes(tSNE_1, tS
         panel.background = element_blank(), axis.line = element_line(colour = "black"))
 plot_grid(p1,p2)
 
-ggsave("4_Liveseq_scRNAseq_integration/tSNE_intergrated_different_visilizaiton.pdf", width = 7.5, height = 2, useDingbats=F  )
+ggsave("04_Liveseq_scRNAseq_integration/tSNE_intergrated_different_visilizaiton.pdf", width = 7.5, height = 2, useDingbats=F  )
 
 
 
@@ -325,7 +325,7 @@ p4 <- FeaturePlot(Twodata.integrated, reduction  = "pca", features = "nFeature_R
 p5 <- FeaturePlot(Twodata.integrated, reduction  = "pca", features = "nCount_RNA", pt.size = 0.15)
 
 plot_grid(p1, p3, p2,p4,p5, ncol = 2, align = "hv", axis = "lrtb")    ### axis indicates the alignment of l: left, r: right, t: top, b: bottom
-ggsave("4_Liveseq_scRNAseq_integration/cluster_pca_intergrated.pdf", width = 5.4, height = 6, useDingbats=F )
+ggsave("04_Liveseq_scRNAseq_integration/cluster_pca_intergrated.pdf", width = 5.4, height = 6, useDingbats=F )
 
 
 
@@ -360,7 +360,7 @@ plist <- lapply(genesToPlot, function(x) {
 )
 
 plot_grid(plotlist=plist, align = "hv", axis = "lrtb", ncol = 2)
-# ggsave("4_Liveseq_scRNAseq_integration/gene_expression_tsne.pdf", width = 4.7, height = 6, useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/gene_expression_tsne.pdf", width = 4.7, height = 6, useDingbats=FALSE)
 
 
 
@@ -392,22 +392,22 @@ p1 <- DimPlot(Twodata.integrated, reduction = "tsne", cols = color.celltype,labe
 plist[[1]] <- p1
 
 plot_grid(plotlist = plist[1:16], align = "hv", axis = "lrtb")
-# ggsave("4_Liveseq_scRNAseq_integration/double_extraction1.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/double_extraction1.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[17:32], align = "hv", axis = "lrtb")
-# ggsave("4_Liveseq_scRNAseq_integration/double_extraction2.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/double_extraction2.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[33:48], align = "hv", axis = "lrtb")
-# ggsave("4_Liveseq_scRNAseq_integration/double_extraction3.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/double_extraction3.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[49:length(plist)], align = "hv", axis = "lrtb", cols = 4)
-# ggsave("4_Liveseq_scRNAseq_integration/double_extraction4.tsne.pdf", width = 12, height = 4,  useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/double_extraction4.tsne.pdf", width = 12, height = 4,  useDingbats=FALSE)
 
 
 
 ### downsamping data for integration ##$$
 
-downsample.list <- readRDS("4_Liveseq_scRNAseq_integration/downsample.list.rds")
+downsample.list <- readRDS("04_Liveseq_scRNAseq_integration/downsample.list.rds")
 ## evulate the clustering in downsampled data
 plist <- lapply( downsample.list, function(x) {
   x$idents <- Idents(x)
@@ -442,21 +442,21 @@ plist <- lapply( downsample.list[1:7], function(x) {
 })
 
 plot_grid(plotlist = plist)
-# ggsave("4_Liveseq_scRNAseq_integration/evaluate_clustering_downsampling.pdf", width = 9, height = 6)
+# ggsave("04_Liveseq_scRNAseq_integration/evaluate_clustering_downsampling.pdf", width = 9, height = 6)
 
 
 plist <- lapply( downsample.list, function(x) {
  p<- DimPlot(x, reduction = "tsne", group.by = "celltype_treatment",  pt.size = 0.2,cols = color.celltype) 
 })
 plot_grid(plotlist = plist)
-# ggsave("4_Liveseq_scRNAseq_integration/clustering_tsne_downsampling.pdf", width = 15, height = 7.5, useDingbats=FALSE)
+# ggsave("04_Liveseq_scRNAseq_integration/clustering_tsne_downsampling.pdf", width = 15, height = 7.5, useDingbats=FALSE)
 
 
 plist <- lapply( downsample.list, function(x) {
   p<- DimPlot(x, reduction = "tsne", group.by = "sampling_type", pt.size = 0.2,cols = color.samplingtype) 
 })
 plot_grid(plotlist = plist)
-# ggsave("4_Liveseq_scRNAseq_integration/clustering_tsne_downsampling_samplingtype.pdf", width = 12, height = 7.5,useDingbats=FALSE )
+# ggsave("04_Liveseq_scRNAseq_integration/clustering_tsne_downsampling_samplingtype.pdf", width = 12, height = 7.5,useDingbats=FALSE )
 
 
 

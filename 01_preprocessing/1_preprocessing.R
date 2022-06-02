@@ -19,7 +19,7 @@ if (~file.exists(file)) {
 }
 
 # save packages versions 
-writeLines(capture.output(sessionInfo()), "1_preprocessing/sessionInfo.txt")
+writeLines(capture.output(sessionInfo()), "01_preprocessing/sessionInfo.txt")
 
 ## input data
 # read count_matrix
@@ -72,9 +72,5 @@ FeatureScatter(Seu.all, feature1 = "percent.mt", feature2 = "percent.rRNA", grou
 
 
 ## save Liveseq_all seurat object
-saveRDS(Seu.all, paste0(root_dir,"/data/Seu.all.RDS"))
-
-
-
-
+saveRDS(Seu.all, paste0(root_dir,"/01_preprocessing/Seu.all.rds"))
 

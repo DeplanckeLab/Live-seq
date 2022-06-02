@@ -14,7 +14,7 @@
 
 ## DE are performed per sampling method of one group (i.e., cluster) versus All the rest. The logFC obtained with the two sampling methods are then compared 
 ## CLUSTERING SELECTED: 
-## Live-seq: MODIFIED_RNA_snn_res.0.2.Rds
+## Live-seq: MODIFIED_RNA_snn_res.0.2.rds
 ## scRNA-seq: MODIFIED_integrated_snn_res.0.2
 
 library(Seurat)
@@ -32,8 +32,8 @@ source(paste0(root_dir, "/utils/utils.R"))
 source(paste0(root_dir, "/utils/myFunctions_DEacrossCT.R"))
 
 # Seurat object
-scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.Rds"))
-Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.Rds"))
+scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.rds"))
+Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.rds"))
 
 ##---------------------------------------------##
 ##---------------RUN DE ANALYSIS---------------##
@@ -86,8 +86,8 @@ scRNA_edgeR_res_filt <- lapply(names(scRNA_edgeR_res_filt), function(x) f_add(x,
 scRNA_edgeR_res_filt <- rbindlist(scRNA_edgeR_res_filt)
 scRNA_edgeR_res_filt <- as.data.frame(scRNA_edgeR_res_filt)
 
-saveRDS(liveseq_edgeR_res, file = paste0(root_dir, "/data/Liveseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.Rds"))
-saveRDS(scRNA_edgeR_res, file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.Rds"))
+saveRDS(liveseq_edgeR_res, file = paste0(root_dir, "/data/Liveseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.rds"))
+saveRDS(scRNA_edgeR_res, file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.rds"))
 
 ##---------------------------------------------##
 ##-------------PLOT COMPARAISON FC-------------##

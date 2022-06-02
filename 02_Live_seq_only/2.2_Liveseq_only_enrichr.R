@@ -17,7 +17,7 @@ dbs <- c("GO_Molecular_Function_2015", "GO_Cellular_Component_2015", "GO_Biologi
 
 ############### for liveseq only ##########
 ###########################################
-DE.liveseq.all <- read.csv("2_Live_seq_only/DEs.Liveseq_only.csv")
+DE.liveseq.all <- read.csv("02_Live_seq_only/DEs.Liveseq_only.csv")
 # DE.liveseq.0to2 <- read.csv("Liveseq_only/DEs0to2.csv")
 
 DE.liveseq.all$cluster <- factor(DE.liveseq.all$cluster)
@@ -116,7 +116,7 @@ library(dendsort)
 # mat_cluster_rows <- sort_hclust(hclust(dist(enrich_top5)))
 # plot(mat_cluster_rows, main = "Sorted Dendrogram", xlab = "", sub = "")
 # dev.off()
-pdf("2_Live_seq_only/enrichr.GoBP.pdf", width = 6, height = 3.6)
+pdf("02_Live_seq_only/enrichr.GoBP.pdf", width = 6, height = 3.6)
 pheatmap(
   mat               = enrich_top5,
   color             = viridis(length(mat_breaks) - 1),
@@ -139,7 +139,7 @@ pheatmap(
 # pheatmap(  enrich_top5, scale = "none", color = viridis(100) , fontsize = 7,   breaks            = mat_breaks,)
 dev.off()
 
-write.csv(enrich_top5 , "2_Live_seq_only/enrichr.GoBP.csv")
+write.csv(enrich_top5 , "02_Live_seq_only/enrichr.GoBP.csv")
 
 
 
@@ -202,7 +202,7 @@ plot(mat_cluster_cols, main = "Sorted Dendrogram", xlab = "", sub = "")
 mat_cluster_rows <- sort_hclust(hclust(dist(enrich_top5)))
 plot(mat_cluster_rows, main = "Sorted Dendrogram", xlab = "", sub = "")
 dev.off()
-pdf("2_Live_seq_only/enrichr.MGA.pdf", width = 2.8, height = 3)
+pdf("02_Live_seq_only/enrichr.MGA.pdf", width = 2.8, height = 3)
 pheatmap(
   mat               = enrich_top5,
   color             = viridis(length(mat_breaks) - 1),

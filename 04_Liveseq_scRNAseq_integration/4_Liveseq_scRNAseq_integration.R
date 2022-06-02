@@ -11,7 +11,7 @@ library(cowplot)
 setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 
 
-Seu.all <- readRDS("1_preprocessing/Seu.all.RDS")
+Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
 
 ### subset of exp5,6,7,scRNA
 Twodata <- subset(Seu.all, subset = ( (sampling_type %in% c("Live_seq", "scRNA")) & celltype_treatment %in% c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated", "Raw264.7_not_treated", "Raw264.7_LPS_treated") )) 
@@ -185,7 +185,7 @@ VlnPlot(subset(Twodata.RNA, treatment=="LPS_treated" ), features =symbol.to.ense
 VlnPlot(subset(Twodata.RNA, treatment=="not_treated" ), features =symbol.to.ensembl("Tnf"), group.by = "mCherry_TNFa" ) + 
   ggtitle("Tnf not_treated")
 
-saveRDS(Twodata.RNA, "4_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
+saveRDS(Twodata.RNA, "04_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
 
 
 
@@ -273,7 +273,7 @@ plot_grid(plotlist=plist)
 
 
 ## save integrated data
-saveRDS(Twodata.integrated, "4_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
+saveRDS(Twodata.integrated, "04_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
 
 
 #### label the double extraction samples
@@ -308,7 +308,7 @@ dev.off()
 
 
 ## read data if needed
-# Twodata.integrated <- readRDS("4_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
+# Twodata.integrated <- readRDS("04_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
 
 ## Down_Sample_Matrix function
 # if the sample size is smaill then expected depth, return the original sample 
@@ -469,7 +469,7 @@ for (i in 1:length(downsample.new)) {
 plot_grid(plotlist = plist)
 
 # save
-saveRDS(downsample.list, "4_Liveseq_scRNAseq_integration/downsample.list.rds")
+saveRDS(downsample.list, "04_Liveseq_scRNAseq_integration/downsample.list.rds")
 
 
 

@@ -25,8 +25,8 @@ source(paste0(root_dir, "/utils/myFunctions_DEwithinCT.R"))
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
-live_aspcs <- readRDS(paste0(root_dir, "/data/Liveseq_ASPCs_seu.Rds"))
-sc_aspcs <- readRDS(paste0(root_dir, "/data/scRNAseq_ASPCs_seu.Rds"))
+live_aspcs <- readRDS(paste0(root_dir, "/data/Liveseq_ASPCs_seu.rds"))
+sc_aspcs <- readRDS(paste0(root_dir, "/data/scRNAseq_ASPCs_seu.rds"))
 
 ##---------------------------------------------##
 ##---------------RUN DE ANALYSIS---------------##
@@ -54,8 +54,8 @@ liveSeq_edgeR_aspc$table$pct_DMI <- prop_DMI[rownames(liveSeq_edgeR_aspc$table)]
 liveSeq_edgeR_aspc$table$high_pct <- F
 liveSeq_edgeR_aspc$table$high_pct[liveSeq_edgeR_aspc$table$pct_NT > 0.15 | liveSeq_edgeR_aspc$table$pct_DMI > 0.15] <- T
 
-saveRDS(liveSeq_edgeR_aspc, paste0(root_dir, "/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
-saveRDS(scRNA_edgeR_res_aspc, paste0(root_dir, "/data/scRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
+saveRDS(liveSeq_edgeR_aspc, paste0(root_dir, "/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
+saveRDS(scRNA_edgeR_res_aspc, paste0(root_dir, "/data/scRNAeq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
 
 ##---------------------------------------------##
 ##-------------PLOT COMPARAISON FC-------------##

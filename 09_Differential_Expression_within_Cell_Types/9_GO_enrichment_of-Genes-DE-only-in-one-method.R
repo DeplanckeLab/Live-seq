@@ -66,8 +66,8 @@ dotPlot_GO <- function(d, ref){
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
 
-liveSeq_edgeR_aspc <- readRDS(paste0(root_dir, "/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.Rds"))
-liveSeq_edgeR_raw <- readRDS(paste0(root_dir, "/data/liveseq_edgeR_res_RAW-NTvsLPSTreated.Rds"))
+liveSeq_edgeR_aspc <- readRDS(paste0(root_dir, "/data/liveseq_edgeR_res_ASPCs_NTvsDMIRTreated.rds"))
+liveSeq_edgeR_raw <- readRDS(paste0(root_dir, "/data/liveseq_edgeR_res_RAW-NTvsLPSTreated.rds"))
 
 ##---------------------------------------------##
 ##----------------COMPUTE GO RES---------------##

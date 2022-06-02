@@ -13,7 +13,7 @@ library(viridis)
 root_dir <- getwd()
 
 ## load Seu.all
-Seu.all <- readRDS(paste0(root_dir, "/data/Seu.all.RDS"))
+Seu.all <- readRDS(paste0(root_dir, "/data/Seu.all.rds"))
 
 ## functin for genesymbol and ensemble name conversation
 gene.info <-
@@ -39,8 +39,6 @@ ensembl.to.symbol <- function(x) {
     warning("more two gene symbol")
   return(gene[1])
 }
-
-
 
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
 
@@ -72,7 +70,7 @@ Liveseq_G9Mock <-
 
 
 ### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
-gene.blacklist <- read.csv("gene.blacklist.csv")
+gene.blacklist <- read.csv(paste0(root_dir, "/data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq_G9Mock@assays$RNA@counts)
 data.count <-
   data.count[!rownames(data.count) %in% gene.blacklist$ensembl_gene_id,]
@@ -146,7 +144,7 @@ plot_grid(
   align = "hv",
   axis = "tblr"
 )
-# ggsave("5_Liveseq_with_LiveCell_imaging/QC_noGroup_before_filtering_Liveseq_G9Mock.pdf",width = 10, height = 1.6, useDingbats=FALSE )
+# ggsave("05_Liveseq_with_LiveCell_imaging/QC_noGroup_before_filtering_Liveseq_G9Mock.pdf",width = 10, height = 1.6, useDingbats=FALSE )
 
 
 ## data normalization
@@ -166,7 +164,7 @@ MVG_Liveseq_G9Mock$gene_symbol <-
   sapply(as.character(MVG_Liveseq_G9Mock$ensembl_ID),
          ensembl.to.symbol)
 write.csv(MVG_Liveseq_G9Mock,
-          "5_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv")
+          paste0(root_dir, "/005_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv"))
 
 # Identify the  most highly variable genes
 top30 <- head(VariableFeatures(Liveseq_G9Mock), 30)
@@ -232,11 +230,11 @@ Liveseq_G9Mock <-
 
 # check cell cycle and mCherry.log.slope
 FeatureScatter(Liveseq_G9Mock, feature1 = "S.Score", feature2 = "mCherry.log.slope")
-# ggsave("5_Liveseq_with_LiveCell_imaging/S.score_mCherry.slope.pdf")
+# ggsave("05_Liveseq_with_LiveCell_imaging/S.score_mCherry.slope.pdf")
 
 # check cell cycle and mCherry.log.slope
 FeatureScatter(Liveseq_G9Mock, feature1 = "G2M.Score", feature2 = "mCherry.log.slope")
-# ggsave("5_Liveseq_with_LiveCell_imaging/G2M.score_mCherry.slope.pdf")
+# ggsave("05_Liveseq_with_LiveCell_imaging/G2M.score_mCherry.slope.pdf")
 
 
 # dimplot with cell cycle
@@ -263,7 +261,7 @@ p6 <-
   )
 
 plot_grid(p1, p2, p3, p4, p5, p6)
-# ggsave("5_Liveseq_with_LiveCell_imaging/Liveseq_G9Mock_cellCycle.pdf", width = 10, height = 6)
+# ggsave("05_Liveseq_with_LiveCell_imaging/Liveseq_G9Mock_cellCycle.pdf", width = 10, height = 6)
 
 
 p1 <- DimPlot(Liveseq_G9Mock, reduction = "tsne")
@@ -281,7 +279,7 @@ plot_grid(p1, p2)
 
 # save object
 saveRDS(Liveseq_G9Mock,
-        "5_Liveseq_with_LiveCell_imaging/Liveseq_G9Mock.rds")
+        "05_Liveseq_with_LiveCell_imaging/Liveseq_G9Mock.rds")
 # Liveseq_G9Mock <- readRDS("Liveseq_G9Mock.rds")
 
 
@@ -395,7 +393,7 @@ plot_grid(
   axis = "tblr"
 )
 
-# ggsave("5_Liveseq_with_LiveCell_imaging/QC_noGroup_scRNA_G9Mock.pdf",width = 10, height = 1.6, useDingbats=FALSE )
+# ggsave("05_Liveseq_with_LiveCell_imaging/QC_noGroup_scRNA_G9Mock.pdf",width = 10, height = 1.6, useDingbats=FALSE )
 
 
 
@@ -416,7 +414,7 @@ MVG_scRNA_G9Mock$gene_symbol <-
   sapply(as.character(MVG_scRNA_G9Mock$ensembl_ID),
          ensembl.to.symbol)
 write.csv(MVG_scRNA_G9Mock,
-          "5_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv")
+          "05_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv")
 ## remove EGFP and mCherry from the variable gene, as it biases.
 # VariableFeatures(Liveseq_sub) <- VariableFeatures(Liveseq_sub) [!VariableFeatures(Liveseq_sub) %in% c("EGFP", "mCherry") ]
 # Identify the 10 most highly variable genes
@@ -505,18 +503,18 @@ plot_grid(p1, p2)
 # HoverLocator(p1)
 
 saveRDS(scRNA_G9Mock,
-        "5_Liveseq_with_LiveCell_imaging/scRNA_G9Mock.rds")
+        "05_Liveseq_with_LiveCell_imaging/scRNA_G9Mock.rds")
 
 
 ## save the MVG of both scRNA-seq and Live-seq
 
 
 MVG_scRNA_G9Mock <-
-  read.csv("5_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv",
+  read.csv("05_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv",
            row.names = 1)
 dim(MVG_scRNA_G9Mock)
 MVG_Liveseq_G9Mock <-
-  read.csv("5_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv",
+  read.csv("05_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv",
            row.names = 1)
 dim(MVG_Liveseq_G9Mock)
 MVG_all_G9Mock <- rbind(MVG_scRNA_G9Mock, MVG_Liveseq_G9Mock)
@@ -525,7 +523,7 @@ MVG_all_G9Mock <-
   MVG_all_G9Mock[!duplicated(MVG_all_G9Mock$ensembl_ID) ,]
 dim(MVG_all_G9Mock)
 write.csv(MVG_all_G9Mock,
-          "5_Liveseq_with_LiveCell_imaging/MVG_all_G9Mock.csv")
+          "05_Liveseq_with_LiveCell_imaging/MVG_all_G9Mock.csv")
 
 
 ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ###### ######
@@ -615,7 +613,7 @@ Liveseq_recordCell <-
   )
 
 saveRDS(Liveseq_recordCell,
-        "5_Liveseq_with_LiveCell_imaging/Liveseq_recordCell.rds")
+        "05_Liveseq_with_LiveCell_imaging/Liveseq_recordCell.rds")
 
 
 ## cell cycle and slope
@@ -631,7 +629,7 @@ p4 <-
 plot_grid(p1, p2, p3, p4)
 
 ggsave(
-  "5_Liveseq_with_LiveCell_imaging/lm.cellcycle.slope_intercept.3_7.5h.pdf",
+  "05_Liveseq_with_LiveCell_imaging/lm.cellcycle.slope_intercept.3_7.5h.pdf",
   width = 5.5,
   height = 4
 )
@@ -734,7 +732,7 @@ lmMod <- function(exp.trans, targetGene) {
   write.csv(
     lm.data,
     paste(
-      "5_Liveseq_with_LiveCell_imaging/lm.",
+      "05_Liveseq_with_LiveCell_imaging/lm.",
       deparse(substitute(exp.trans)),
       ".",
       targetGene,
@@ -851,7 +849,7 @@ lmMod <- function(exp.trans, targetGene) {
             axis = "tblr")
   ggsave(
     paste(
-      "5_Liveseq_with_LiveCell_imaging/plot_",
+      "05_Liveseq_with_LiveCell_imaging/plot_",
       deparse(substitute(exp.trans)),
       "." ,
       targetGene,
@@ -895,7 +893,7 @@ stopCluster(cl)
 
 ## linear regression with only the MVGs
 MVG_all_G9Mock <-
-  read.csv("5_Liveseq_with_LiveCell_imaging/MVG_all_G9Mock.csv",
+  read.csv("05_Liveseq_with_LiveCell_imaging/MVG_all_G9Mock.csv",
            row.names = 1)
 
 ### remove the genes with 0 variation

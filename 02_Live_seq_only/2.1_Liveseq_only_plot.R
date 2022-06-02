@@ -19,7 +19,7 @@ writeLines(capture.output(sessionInfo()), "plot_Liveseq_only_sessionInfo.txt")
 
 
 ## load Liveseq object
-Liveseq <- readRDS("2_Live_seq_only/Liveseq.rds")
+Liveseq <- readRDS("02_Live_seq_only/Liveseq.rds")
 
 ## mean of nFeature = 4112.35
 mean(Liveseq$nFeature_RNA)   
@@ -211,7 +211,7 @@ par()              # view current settings
 opar <- par()      # make a copy of current settings
 par(cex=0.5 ) # red x and y labels
 
-pdf("2_Live_seq_only/Liveseq_hierachical_clustering.pdf", width = 7, height = 3)
+pdf("02_Live_seq_only/Liveseq_hierachical_clustering.pdf", width = 7, height = 3)
 dend %>% 
   set("labels_col", as.character(mycolor)) %>% # change color
   set("labels_cex", 0.5) %>% # Change size
@@ -226,7 +226,7 @@ ggplot(df, aes(x=sample.name, y=1, fill=sample.name))+
   geom_bar(stat="identity", color=as.character(mycolor))+
   scale_fill_manual(values=as.character(mycolor)) + 
   theme_nothing()
-ggsave("2_Live_seq_only/Liveseq_hierachical_clustering_colorBar.pdf")
+ggsave("02_Live_seq_only/Liveseq_hierachical_clustering_colorBar.pdf")
 
 
 par(opar)          # restore original settings
@@ -247,9 +247,9 @@ batch8_8.cell <- colnames(subset(Liveseq, Batch == "8_8"))
 batch9_4.cell <- colnames(subset(Liveseq, Batch == "9_4"))
 
 ## save the name of each cell type and treatment
-save(ASPC.cell, ASPCtreated.cell, IBA.cell, RAWLpsN.cell, RAWLpsP.cell, batch5.cell, batch6.cell, batch7.cell, batch8_8.cell, batch9_4.cell , file = "2_Live_seq_only/cells.types.batch5,6,7,8_8,9_4.RData")
-write(c(batch5.cell," ", batch6.cell," ", batch7.cell," ", batch8_8.cell," ", batch9_4.cell), "2_Live_seq_only/cells.batch5,6,7,8_8,9_4.txt", sep=" ")
-write(c(ASPC.cell, " ", ASPCtreated.cell, " ", IBA.cell," " ,RAWLpsN.cell," ", RAWLpsP.cell), "2_Live_seq_only/cells.types5,6,7,8_8,9_4.txt", sep=" ")
+save(ASPC.cell, ASPCtreated.cell, IBA.cell, RAWLpsN.cell, RAWLpsP.cell, batch5.cell, batch6.cell, batch7.cell, batch8_8.cell, batch9_4.cell , file = "02_Live_seq_only/cells.types.batch5,6,7,8_8,9_4.RData")
+write(c(batch5.cell," ", batch6.cell," ", batch7.cell," ", batch8_8.cell," ", batch9_4.cell), "02_Live_seq_only/cells.batch5,6,7,8_8,9_4.txt", sep=" ")
+write(c(ASPC.cell, " ", ASPCtreated.cell, " ", IBA.cell," " ,RAWLpsN.cell," ", RAWLpsP.cell), "02_Live_seq_only/cells.types5,6,7,8_8,9_4.txt", sep=" ")
 
 
 ### compare the cluster with ground trust.
@@ -269,7 +269,7 @@ p <- p +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
   ylab("Number of cells") +
   xlab("Cluster")
 p
-# ggsave("2_Live_seq_only/Liveseq_evaluate_cluster.pdf", width = 3, height = 2)
+# ggsave("02_Live_seq_only/Liveseq_evaluate_cluster.pdf", width = 3, height = 2)
 
 # with percentage 
 p <- ggplot(Liveseq@meta.data,aes(x=ident,fill=celltype_treatment))+
@@ -285,7 +285,7 @@ p <- p +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
   xlab("Cluster") 
 
 p
-# ggsave("2_Live_seq_only/Liveseq_evaluate_cluster_percent.pdf", width = 3, height = 2)
+# ggsave("02_Live_seq_only/Liveseq_evaluate_cluster_percent.pdf", width = 3, height = 2)
 
 
 
@@ -303,7 +303,7 @@ p4 <- DimPlot(Liveseq, reduction  = "umap", group.by = "Batch", cols = color.bat
 p5 <- FeaturePlot(Liveseq, reduction  = "umap", features = "nCount_RNA", pt.size = 0.3)
 
 plot_grid(p1, p2, p3, p4,p5, align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/cluster_umap.pdf", width = 8.2, height = 4, useDingbats=F)
+# ggsave("02_Live_seq_only/cluster_umap.pdf", width = 8.2, height = 4, useDingbats=F)
 
 ## tsne plots
 p1 <- DimPlot(Liveseq, reduction = "tsne", cols = color.celltype,label = TRUE,label.size = 2 ,repel = T, pt.size = 0.3) + NoLegend()
@@ -318,7 +318,7 @@ p5 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "nCount_RNA", pt.size
 
 p6 <- DimPlot(Liveseq, reduction  = "tsne", group.by = "Cell_type", cols = c( "wheat3", "steelblue1", "darkcyan", "cyan3"), pt.size = 0.3)
 plot_grid(p1, p2, p3, p4,p5,p6, align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/cluster_tsne.pdf", width = 9.2, height = 4, useDingbats=F)
+# ggsave("02_Live_seq_only/cluster_tsne.pdf", width = 9.2, height = 4, useDingbats=F)
 
 
 
@@ -336,7 +336,7 @@ p4 <- DimPlot(Liveseq, reduction  = "pca", group.by = "Batch", cols = color.batc
 p5 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "nCount_RNA", pt.size = 0.3)
 
 plot_grid(p1, p2, p3, p4,p5, align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/cluster_pca.pdf", width = 8.2, height = 4, useDingbats=F)
+# ggsave("02_Live_seq_only/cluster_pca.pdf", width = 8.2, height = 4, useDingbats=F)
 
 
 ### cell cycle plot
@@ -348,12 +348,12 @@ p3 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "S.Score", pt.size = 
 p4 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "G2M.Score", pt.size = 0.3)
 
 plot_grid(p2, p3, p4, align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/cluster_cellCycle.pdf", width = 5.5, height = 4, useDingbats=F)
+# ggsave("02_Live_seq_only/cluster_cellCycle.pdf", width = 5.5, height = 4, useDingbats=F)
 
 
 
 ## plot heatmap of top DE of Live-seq data
-Liveseq.markers <- read.csv("2_Live_seq_only/DEs.Liveseq_only.csv")
+Liveseq.markers <- read.csv("02_Live_seq_only/DEs.Liveseq_only.csv")
 # Liveseq.markers <- read.csv("../LiveSeq_vsscRNAseq_9.09.21/Liveseq.markers.celltype.edgeR.csv")  ## DE from edgeR
 
 
@@ -393,7 +393,7 @@ sampleorder.x <- ggplot_build(p)$layout$panel_params[[1]]$x$limits
 color.x <- rep("white", length(sampleorder.x))
 
 # load cells of each celltype_treament
-load("2_Live_seq_only/cells.types.batch5,6,7,8_8,9_4.RData")
+load("02_Live_seq_only/cells.types.batch5,6,7,8_8,9_4.RData")
 color.x[match(ASPC.cell, sampleorder.x)]  <- color.celltype[1]
 color.x[match(ASPCtreated.cell, sampleorder.x)]  <- color.celltype[2]
 color.x[match(IBA.cell, sampleorder.x)]  <- color.celltype[3]
@@ -473,23 +473,23 @@ plist[[1]] <- p1
 
 ## plot every 16 pannels
 plot_grid(plotlist = plist[1:16], align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/double_extraction1.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("02_Live_seq_only/double_extraction1.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[17:32], align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/double_extraction2.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("02_Live_seq_only/double_extraction2.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[33:48], align = "hv", axis = "lrtb")
-# ggsave("2_Live_seq_only/double_extraction3.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
+# ggsave("02_Live_seq_only/double_extraction3.tsne.pdf", width = 12, height = 8,  useDingbats=FALSE)
 
 plot_grid(plotlist = plist[49:length(plist)], align = "hv", axis = "lrtb", cols = 4)
-# ggsave("2_Live_seq_only/double_extraction4.tsne.pdf", width = 12, height = 4,  useDingbats=FALSE)
+# ggsave("02_Live_seq_only/double_extraction4.tsne.pdf", width = 12, height = 4,  useDingbats=FALSE)
 
 
 
 
 ### evaluate the sequencing depth effect with downsampling data
 
-downsample.new <- readRDS("2_Live_seq_only/downsample.new.rds")
+downsample.new <- readRDS("02_Live_seq_only/downsample.new.rds")
 
 
 ## plot the QC of downsampled data
@@ -508,7 +508,7 @@ plist <- lapply(c("nFeature_RNA", "nCount_RNA", "percent.mt", "percent.rRNA", "p
 
 plot_grid(plotlist = plist,  ncol = 8, align = "hv", axis = "tblr")
 
-# ggsave("2_Live_seq_only/downsampled.QC.pdf",width = 10, height = 1.6, useDingbats=FALSE )
+# ggsave("02_Live_seq_only/downsampled.QC.pdf",width = 10, height = 1.6, useDingbats=FALSE )
 
 
 
@@ -522,7 +522,7 @@ for (i in 1:length(downsample.new)) {
 }
 
 plot_grid(plotlist = plist)
-# ggsave("2_Live_seq_only/Liveseq_cluster_downsampling.pdf", width = 8, height = 6)
+# ggsave("02_Live_seq_only/Liveseq_cluster_downsampling.pdf", width = 8, height = 6)
 
 
 
