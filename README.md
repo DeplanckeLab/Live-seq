@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/486101770.svg)](https://zenodo.org/badge/latestdoi/486101770)
+
 # Live-seq
 
 ## Abstract
