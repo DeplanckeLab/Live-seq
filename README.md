@@ -35,7 +35,6 @@ This repository contains the pipeline to be able to reproduce all figures of the
 This repository also contains the data used in the pipeline.
 
 The main count matrix is downloadable on GEO: [GSE141064](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE141064).
-
 In the pipeline, it's automatically downloaded and parsed in the first script: **01. Preprocessing**
 
 **[./data](data):** 
