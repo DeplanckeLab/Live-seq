@@ -1,3 +1,17 @@
+################################################################
+#                                                              #
+#                         Plot scRNA-seq                       #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: scRNA-seq
+### Goal: Making some summary plots of the scRNA-seq data
+
+library(rprojroot)
+root_dir <- find_root(has_file("Live-seq.RProj"))
+
 library(Seurat)
 library(dplyr)
 library(grid)
@@ -9,18 +23,14 @@ library(ggplot2)
 library(cowplot)
 library(ggpubr)
 library(viridis)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 
-###### version control
-writeLines(capture.output(sessionInfo()), "03_scRNA_seq_only/sessionInfo.txt")
 #######################
 
-scRNA <- readRDS("03_scRNA_seq_only/scRNAseq.rds")
+scRNA <- readRDS("03_scRNA_seq_only/scRNAseq_only.rds")
 
 mean(scRNA$nFeature_RNA)    ### nFeature mean = 8328.863
 
-### save sample_name for RNA velocity analasis
+### save sample_name for RNA velocity analysis
 cells.scRNA.exp7 <- as.character(subset(scRNA, Batch == "scRNA")$sample_name)
 cells.scRNA.exp8_8 <- as.character(subset(scRNA, Batch == "8_8")$sample_name)
 cells.scRNA.exp9_1 <- as.character(subset(scRNA, Batch == "9_1")$sample_name)
@@ -335,7 +345,7 @@ ggplot(df, aes(x=sample.name, y=1, fill=sample.name))+
 #### Dimplot the DE genes
 
 ## functin for genesymbol and ensemble name conversation
-gene.info <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+gene.info <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 symbol.to.ensembl <- function(x) {
   
   df <- subset(gene.info, external_gene_name == x) 

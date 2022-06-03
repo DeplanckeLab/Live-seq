@@ -1,3 +1,17 @@
+################################################################
+#                                                              #
+#                    Explore scRNA-seq data                    #
+#                                                              #
+################################################################
+
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: scRNA-seq only
+### Goal: Explore clusterings and accuracy of scRNA-seq data only 
+
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -8,22 +22,16 @@ library(reshape2)
 library(Matrix)
 library(ggplot2)
 library(cowplot)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
 
-###### version control
-writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 #######################
 
-Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
-
-
+Seu.all <- readRDS(file.path(root_dir, "01_preprocessing/Seu.all.rds"))
 
 ### subset of scRNA
 scRNA <- subset(Seu.all, subset = (sampling_type == "scRNA" & celltype_treatment %in% c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated", "Raw264.7_not_treated", "Raw264.7_LPS_treated") )) 
 dim(scRNA)
 ### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control. 
-gene.blacklist <- read.csv("gene.blacklist.csv")
+gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(scRNA@assays$RNA@counts) 
 data.count <- data.count[ !rownames(data.count) %in% gene.blacklist$ensembl_gene_id, ]
 
@@ -88,8 +96,8 @@ plot2
 ####    evaluate  cell cycle effects  ####
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
-s.genes <- readRDS("s.genes.mouse.rds")    
-g2m.genes <- readRDS("g2m.genes.mouse.rds")    
+s.genes <- readRDS(file.path(root_dir, "data/s.genes.mouse.rds"))
+g2m.genes <- readRDS(file.path(root_dir, "data/g2m.genes.mouse.rds"))   
 
 scRNA <- CellCycleScoring(scRNA, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 
@@ -121,7 +129,7 @@ p3 <- DimPlot(scRNA, reduction = "tsne", group.by = "Batch")
 p4<- FeaturePlot(scRNA, reduction = "tsne", features  = "nFeature_RNA" )
 plot_grid(p1,p2,p3, p4)
 
-saveRDS(scRNA  ,"03_scRNA_seq_only/scRNAseq.rds")
+saveRDS(scRNA, file.path(root_dir, "03_scRNA_seq_only/scRNAseq_only.rds"))
 
 
 
@@ -190,8 +198,8 @@ plot2
 
 # A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
 # segregate this list into markers of G2/M phase and markers of S phase
-s.genes <- readRDS("s.genes.mouse.rds")    
-g2m.genes <- readRDS("g2m.genes.mouse.rds")    
+s.genes <- readRDS(file.path(root_dir, "data/s.genes.mouse.rds"))
+g2m.genes <- readRDS(file.path(root_dir, "data/g2m.genes.mouse.rds"))
 
 scRNA.integrated <- CellCycleScoring(scRNA.integrated, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 
@@ -370,7 +378,7 @@ p5 <- DimPlot(scRNA.integrated, reduction = "tsne", group.by = "integrated_snn_r
 plot_grid(p1, p2, p3,p4,p5, align = "hv", axis = "lrtb")
 
 
-saveRDS(scRNA.integrated, "03_scRNA_seq_only/scRNAseq_batch_corrected.rds")
+saveRDS(scRNA.integrated, file.path(root_dir, "03_scRNA_seq_only/scRNAseq_batch_corrected.rds"))
 
 # scRNA.integrated <-  readRDS("scRNAseq_batch_corrected.rds")
 
@@ -378,10 +386,9 @@ saveRDS(scRNA.integrated, "03_scRNA_seq_only/scRNAseq_batch_corrected.rds")
 ##################### DE genes  ##########
 ##################### Note that the edgR package are used to incorporate the batch effect, refer to the edgR analysis   ##########
 ## remove the pseudogene from DE analysis
-geneName <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+geneName <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 gene.pseudogene <- geneName[endsWith(as.character(geneName$gene_biotype),  "pseudogene"),]
 gene.pseudoRemoved <- subset(scRNA@assays$RNA@meta.features, !(ensembl_gene_id %in% gene.pseudogene$ensembl_gene_id))
-
 
 # For performing differential expression after integration, we switch back to the original
 # data
@@ -390,9 +397,6 @@ DefaultAssay(scRNA.integrated) <- "integrated"
 
 # # DE base on celltype_treatment
 # Idents(scRNA.integrated) <- scRNA.integrated$celltype_treatment
-
-
-
 
 scRNA.markers <- FindAllMarkers(scRNA.integrated, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25, features = rownames(gene.pseudoRemoved))
 
@@ -413,7 +417,7 @@ top10 <- subset(top10, p_val_adj < 0.05)
 DoHeatmap(scRNA.integrated, features = top10$gene)  + 
   scale_y_discrete(labels= rev(top10$genesymbol))
 
-write.csv(scRNA.markers, "03_scRNA_seq_only/DEs.scRNA.csv")
+write.csv(scRNA.markers, file.path(root_dir, "03_scRNA_seq_only/DEs.scRNA.csv"))
 # write.csv(scRNA.markers.allGene, "DEs.scRNA.allGenes.csv")
 
 
