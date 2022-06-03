@@ -5,5 +5,14 @@ data
 02_Live_seq_only/*pdf
 02_Live_seq_only/*.RData
 02_Live_seq_only/*csv
+03_scRNA_seq_only/*txt
+03_scRNA_seq_only/*pdf
+03_scRNA_seq_only/*.RData
+03_scRNA_seq_only/*csv
+04_Liveseq_scRNAseq_integration/*txt
+04_Liveseq_scRNAseq_integration/*pdf
+04_Liveseq_scRNAseq_integration/*.RData
+04_Liveseq_scRNAseq_integration/*csv
 05_Liveseq_with_LiveCell_imaging/*csv
+05_Liveseq_with_LiveCell_imaging/*pdf
 log.foreach.txt
