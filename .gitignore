@@ -1,3 +1,8 @@
 data
 *.rds
 .Rproj.user
+02_Live_seq_only/*txt
+02_Live_seq_only/*pdf
+02_Live_seq_only/*.RData
+02_Live_seq_only/*csv
+05_Liveseq_with_LiveCell_imaging/*csv
