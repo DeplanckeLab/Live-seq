@@ -1,0 +1,13 @@
+library(Seurat)
+library(edgeR)
+library(ggplot2)
+library(tidyverse)
+library(cowplot)
+library(ggpubr)
+library(dendextend)
+library(doSNOW)
+library(viridis)
+library(data.table)
+library(dynutils)
+
+devtools::session_info(to_file = "session_info.md")

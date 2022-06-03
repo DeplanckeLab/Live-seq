@@ -32,9 +32,6 @@ if (!file.exists(file)) {
   )
 }
 
-# save packages versions 
-writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
-
 ## input data
 # read count_matrix
 count.all <- read.csv(paste0(root_dir, "/data/GSE141064_count.final.csv.gz"), row.names = 1)
