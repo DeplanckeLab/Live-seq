@@ -19,15 +19,15 @@ This repository contains the pipeline to be able to reproduce all figures of the
 
 **5. Live-seq with live cell imaging:** Connecting the transcriptomic profile with a downstream phenotypic response, i.e. TNF upregulation upon LPS treatment
 
-**6. Clustering:**
+**6. Clustering:** Compute clustering accuracy (ARI, Barplot comparison and clustree)
 
-**7. Differential expression across cell types:**
+**7. Differential expression across cell types:** Compute DE for each cluster (corresponding to a cell type/state) versus the rest for both Live-seq and scRNA-seq data. EnrichR on DE genes for BP GO terms and Mouse Cell Atlas, of each cluster versus Rest per sampling method
 
-**8. Analysis per cell type:**
+**8. Analysis per cell type:** Compute figures Live-seq manuscript per cell types: 1. tSNE per cell types colored by metadata and clustering, 2. tSNE colored per extracted volumes, 3. Avg expression per cell type - correlation between sc and live
 
-**9. Differential expression within cell type:**
+**9. Differential expression within cell type:** Compare DE results obtained with scRNA and Live-seq. Identify GO Terms of genes detected only by live-seq or scRNA-seq to find any potential bias.
 
-**10. Downsampling scRNA-seq:** Downsampling scripts for scRNA-seq. (see **2.** for downsampling of Live-seq data)
+**10. Downsampling scRNA-seq:** Downsample scRNAseq data so that match complexity of Live-seq -> perform DE. Compare DE results obtained with scRNA and Live-seq. Downsampling scripts for scRNA-seq. (see **2.** for downsampling of Live-seq data). Compare number of common genes between Live-seq vs scRNA-seq OR Live-seq vs Downsampled scRNA-seq.
 
 **./utils** Some utility functions used across the scripts
 
