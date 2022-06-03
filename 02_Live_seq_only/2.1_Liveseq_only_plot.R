@@ -1,3 +1,17 @@
+################################################################
+#                                                              #
+#                         Plot Live-seq                        #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: Live-seq
+### Goal: Making some summary plots of the Live-seq data
+
+library(rprojroot)
+root_dir <- find_root(has_file("Live-seq.RProj"))
+
 library(Seurat)
 library(dplyr)
 library(grid)
@@ -8,18 +22,10 @@ library(Matrix)
 library(ggplot2)
 library(cowplot)
 library(ggpubr)
-library("viridis")           # Load
-# source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
-
-###### version control
-writeLines(capture.output(sessionInfo()), "plot_Liveseq_only_sessionInfo.txt")
-
-
+library(viridis)
 
 ## load Liveseq object
-Liveseq <- readRDS("02_Live_seq_only/Liveseq.rds")
+Liveseq <- readRDS(file.path(root_dir, "02_Live_seq_only/Liveseq_only.rds"))
 
 ## mean of nFeature = 4112.35
 mean(Liveseq$nFeature_RNA)   
@@ -108,16 +114,16 @@ plot_grid(plotlist = plist)
 
 ## plot scatter plot 
 p1 <- FeatureScatter(Liveseq, feature1 = "nCount_RNA", feature2 = "nFeature_RNA", group.by = "Batch", pt.size = 0.3, cols = color.batch) 
-p1 <- mytheme(p1)
+# p1 <- mytheme(p1)
 
 p2 <- FeatureScatter(Liveseq, feature1 = "cDNA_concentration", feature2 = "nFeature_RNA", group.by = "Batch", pt.size = 0.3, cols = color.batch) 
-p2 <- mytheme(p2)
+# p2 <- mytheme(p2)
 
 p3 <- FeatureScatter(Liveseq, feature1 = "nCount_RNA", feature2 = "nFeature_RNA", group.by = "celltype_treatment", pt.size = 0.3, cols = color.celltype) 
-p3 <- mytheme(p3)
+# p3 <- mytheme(p3)
 
 p4 <- FeatureScatter(Liveseq, feature1 = "cDNA_concentration", feature2 = "nFeature_RNA", group.by = "celltype_treatment", pt.size = 0.3, cols = color.celltype) 
-p4 <- mytheme(p4)
+# p4 <- mytheme(p4)
 
 plot_grid(p1,p2,p3,p4, align = "hv", axis = "lrtb")
 
@@ -341,8 +347,6 @@ plot_grid(p1, p2, p3, p4,p5, align = "hv", axis = "lrtb")
 
 ### cell cycle plot
 
-
-
 p2 <- DimPlot(Liveseq, reduction = "tsne", group.by = "Phase",label = TRUE,label.size = 2 ,repel = T, pt.size = 0.3) 
 p3 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "S.Score", pt.size = 0.3)
 p4 <- FeaturePlot(Liveseq, reduction  = "tsne", features = "G2M.Score", pt.size = 0.3)
@@ -353,7 +357,7 @@ plot_grid(p2, p3, p4, align = "hv", axis = "lrtb")
 
 
 ## plot heatmap of top DE of Live-seq data
-Liveseq.markers <- read.csv("02_Live_seq_only/DEs.Liveseq_only.csv")
+Liveseq.markers <- read.csv(file.path(root_dir, "02_Live_seq_only/DEs.Liveseq_only.csv"))
 # Liveseq.markers <- read.csv("../LiveSeq_vsscRNAseq_9.09.21/Liveseq.markers.celltype.edgeR.csv")  ## DE from edgeR
 
 
@@ -420,7 +424,7 @@ ggplot( df, aes(x=sample.name, y=1, fill=sample.name ))+
 #### Dimplot the DE genes
 
 ## functin for genesymbol and ensemble name conversation
-gene.info <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+gene.info <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 symbol.to.ensembl <- function(x) {
   
   df <- subset(gene.info, external_gene_name == x) 
@@ -511,15 +515,11 @@ plot_grid(plotlist = plist,  ncol = 8, align = "hv", axis = "tblr")
 # ggsave("02_Live_seq_only/downsampled.QC.pdf",width = 10, height = 1.6, useDingbats=FALSE )
 
 
-
-
-plist <-list()
-
-for (i in 1:length(downsample.new)) {
+plist <- lapply(1:length(downsample.new), function(i) {
   p <- DimPlot(downsample.new[[i]], reduction = "tsne", group.by = "celltype_treatment",label = TRUE,label.size = 2 ,repel = T, pt.size = 0.3, cols = color.celltype) + 
     NoLegend() +
     ggtitle(mean(downsample.new[[i]]@meta.data$nCount_RNA))
-}
+})
 
 plot_grid(plotlist = plist)
 # ggsave("02_Live_seq_only/Liveseq_cluster_downsampling.pdf", width = 8, height = 6)

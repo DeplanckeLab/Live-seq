@@ -1,3 +1,17 @@
+################################################################
+#                                                              #
+#                    Explore Live-seq data                     #
+#                                                              #
+################################################################
+
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: Live-seq only
+### Goal: Explore clusterings and accuracy of Live-seq data only 
+
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -9,21 +23,16 @@ library(Matrix)
 library(ggplot2)
 library(cowplot)
 library(viridis)
-# source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
-# save packages versions 
-writeLines(capture.output(sessionInfo()), "02_Live_seq_only/sessionInfo.txt")
-
+library(readr)
 
 ## make Live-seq object
 # read all Seu.all
-Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
+Seu.all <- readRDS(file.path(root_dir, "01_preprocessing/Seu.all.rds"))
 # subset Liveseq
 Liveseq <- subset(Seu.all, subset = (sampling_type == "Live_seq" & nFeature_RNA > 1000) )
 dim(Liveseq)
 # remove 20 genes in black list, which are derived from the 0 pg input RNA negative control. 
-gene.blacklist <- read.csv("gene.blacklist.csv")
+gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq@assays$RNA@counts)
 data.count <- data.count[ !rownames(data.count) %in% gene.blacklist$ensembl_gene_id, ]
 # remove ribosomal protein genes
@@ -42,8 +51,6 @@ Liveseq@meta.data$uniquely.mapped.rate <- Liveseq@meta.data$uniquely.mapped / Li
 Liveseq@meta.data$intron.mapped.rate <- Liveseq@meta.data$nCount_RNA / Liveseq@meta.data$uniquely.mapped
 # Liveseq_sub@meta.data$celltype_treatment  <-  droplevels(Liveseq_sub@meta.data$celltype_treatment  )
 Liveseq@meta.data$celltype_treatment  <- factor(Liveseq@meta.data$celltype_treatment , levels = c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated","Raw264.7_not_treated", "Raw264.7_LPS_treated"))
-
-
 
 
 ## QC 
@@ -86,8 +93,8 @@ plot2 <- LabelPoints(plot = plot1, points = top30,  labels = Liveseq@assays$RNA@
 plot2
 
 ## cell cycle score
-s.genes <- readRDS("s.genes.mouse.rds")
-g2m.genes <- readRDS("g2m.genes.mouse.rds")
+s.genes <- readRDS(file.path(root_dir, "data/s.genes.mouse.rds"))
+g2m.genes <- readRDS(file.path(root_dir, "data/g2m.genes.mouse.rds"))
 
 Liveseq <- CellCycleScoring(Liveseq, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 
@@ -200,8 +207,7 @@ p3 <- DimPlot(Liveseq, reduction = "tsne", group.by = "Batch")
 plot_grid(p1,p2,p3)
 
 ## save object
-saveRDS(Liveseq, "02_Live_seq_only/Liveseq.rds")
-
+saveRDS(Liveseq, "02_Live_seq_only/Liveseq_only.rds")
 
 
 #########  DE genes per cluster  ##########
@@ -412,5 +418,6 @@ for (i in 1:length(downsample.new)) {
 
 dev.off()
 
-saveRDS(downsample.new, "02_Live_seq_only/downsample.new.rds")
+saveRDS(downsample.new, file.path(root_dir, "02_Live_seq_only/downsample.new.rds"))
 # downsample.list <- readRDS("downsample.list.rds")
+
