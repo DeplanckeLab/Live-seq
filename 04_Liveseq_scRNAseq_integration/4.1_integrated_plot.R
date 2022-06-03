@@ -1,3 +1,16 @@
+################################################################
+#                                                              #
+#       Plot integration of Live-seq and scRNA-seq             #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: Live-seq and scRNA-seq only
+### Goal: Plot integration of Live-seq and scRNA-seq
+
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -7,7 +20,7 @@ library(scater)
 library(reshape2)
 library(Matrix)
 library(cowplot)
-source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)
+# source('~/NAS2/wchen/data_analysis/Resource/R_Funcitons/My_Rfunctions.R', local=TRUE)##
 
 ## read Twodata.RNA object
 Twodata.RNA <- readRDS("04_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
@@ -176,8 +189,8 @@ plot_grid(p1, p3, p2,p4,p5, ncol = 2, align = "hv", axis = "lrtb")    ### axis i
 # ggsave("04_Liveseq_scRNAseq_integration/cluster_tsne_RNA.pdf", width = 5.4, height = 6, useDingbats=F )
 
 ## plot cell cycle
-s.genes <- readRDS("s.genes.mouse.rds")    
-g2m.genes <- readRDS("g2m.genes.mouse.rds")    
+s.genes <- readRDS(file.path(root_dir, "data/s.genes.mouse.rds"))
+g2m.genes <- readRDS(file.path(root_dir, "data/g2m.genes.mouse.rds"))
 
 Twodata.RNA <- CellCycleScoring(Twodata.RNA, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 
@@ -228,8 +241,8 @@ plot_grid(p1,p2, align = "vh", axis = "lrtb")
 Twodata.integrated <- readRDS("04_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds")
 DefaultAssay(Twodata.integrated) <- "RNA"
 
-s.genes <- readRDS("s.genes.mouse.rds")    
-g2m.genes <- readRDS("g2m.genes.mouse.rds")    
+s.genes <- readRDS(file.path(root_dir, "data/s.genes.mouse.rds"))
+g2m.genes <- readRDS(file.path(root_dir, "data/g2m.genes.mouse.rds"))     
 
 Twodata.integrated <- CellCycleScoring(Twodata.integrated, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
 # Idents(Twodata.integrated) <- Twodata.integrated$integrated_snn_res.0.2 
@@ -240,8 +253,9 @@ DefaultAssay(Twodata.integrated) <- "integrated"
 
 
 ## remove the pseudogene from DE analysis
-geneName <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+geneName <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 gene.pseudogene <- geneName[endsWith(as.character(geneName$gene_biotype),  "pseudogene"),]
+Twodata.integrated@assays$RNA@meta.features <- Seu.all@assays$RNA@meta.features[ rownames(Twodata.integrated), ]
 gene.pseudoRemoved <- subset(Twodata.integrated@assays$RNA@meta.features, !(ensembl_gene_id %in% gene.pseudogene$ensembl_gene_id))
 
 
@@ -333,7 +347,7 @@ ggsave("04_Liveseq_scRNAseq_integration/cluster_pca_intergrated.pdf", width = 5.
 
 ### plot the DE genes
 ## functin for genesymbol and ensemble name conversation
-gene.info <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+gene.info <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 symbol.to.ensembl <- function(x) {
   
   df <- subset(gene.info, external_gene_name == x) 

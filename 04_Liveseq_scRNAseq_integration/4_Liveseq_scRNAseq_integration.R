@@ -1,3 +1,16 @@
+################################################################
+#                                                              #
+#              Integrate Live-seq and scRNA-seq                #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: Live-seq and scRNA-seq only
+### Goal: Integrate Live-seq and scRNA-seq
+
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -7,17 +20,14 @@ library(scater)
 library(reshape2)
 library(Matrix)
 library(cowplot)
-# Set working directory
-setwd("~/SVFASRAW/wchen/data_analysis/Live_seq/final_analysis_V3/Code_github/")
-
 
 Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
 
 ### subset of exp5,6,7,scRNA
 Twodata <- subset(Seu.all, subset = ( (sampling_type %in% c("Live_seq", "scRNA")) & celltype_treatment %in% c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated", "Raw264.7_not_treated", "Raw264.7_LPS_treated") )) 
 ### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control. 
-gene.blacklist <- read.csv("gene.blacklist.csv")
-data.count <- as.matrix(Twodata@assays$RNA@counts) 
+gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
+data.count <- as.matrix(Twodata@assays$RNA@counts)
 data.count <- data.count[ !rownames(data.count) %in% gene.blacklist$ensembl_gene_id, ]
 
 ##### remove ribosomal protein genes
@@ -147,7 +157,7 @@ plot_grid(p1, p2, p3,p4)
 
 
 ## functin for genesymbol and ensemble name conversation
-gene.info <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+gene.info <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 symbol.to.ensembl <- function(x) {
   
   df <- subset(gene.info, external_gene_name == x) 
@@ -184,6 +194,8 @@ VlnPlot(subset(Twodata.RNA, treatment=="LPS_treated" ), features =symbol.to.ense
     ggtitle("Tnf LPS_treated")
 VlnPlot(subset(Twodata.RNA, treatment=="not_treated" ), features =symbol.to.ensembl("Tnf"), group.by = "mCherry_TNFa" ) + 
   ggtitle("Tnf not_treated")
+
+Twodata.RNA@assays$RNA@meta.features <- Seu.all@assays$RNA@meta.features[ rownames(Twodata.RNA), ]
 
 saveRDS(Twodata.RNA, "04_Liveseq_scRNAseq_integration/Intergrated_data.RNA.rds")
 
