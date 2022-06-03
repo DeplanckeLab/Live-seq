@@ -15,4 +15,5 @@ data
 04_Liveseq_scRNAseq_integration/*csv
 05_Liveseq_with_LiveCell_imaging/*csv
 05_Liveseq_with_LiveCell_imaging/*pdf
+05_Liveseq_with_LiveCell_imaging/*xlsx
 log.foreach.txt

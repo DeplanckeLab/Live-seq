@@ -5,15 +5,15 @@
 ################################################################
 
 
-### Author: Pernille Rainer, pernille.rainer@epfl.ch
-### Date: 01-02.2022
-### Datasets: scRNA-seq and Live-seq 
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: scRNA-seq and Live-seq
 ### Goal: Compute clustering accuracy (ARI, Barplot comparison and clustree)
 
-library(rprojroot)
-root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils.R"))
-require(Seurat); require(clustree); require(ggplot2); require(gridExtra); require(dplyr)
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
+source(paste0(root_dir, "/utils/utils.R"))
+library(Seurat); library(clustree); library(ggplot2); library(gridExtra); library(dplyr)
 
 ##---------------------------------------------##
 ##------------------Load data------------------##
@@ -30,8 +30,10 @@ f_subsample <- function(all, CT , B, Sampling, correct_batch = T ){
 }
 
 ## Seurat objects 
-scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.rds"))
-Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.rds"))
+scRNAseq_only <- readRDS(file.path(root_dir, "03_scRNA_seq_only/scRNAseq_only.rds"))
+Liveseq_only <- readRDS(file.path(root_dir, "02_Live_seq_only/Liveseq_only.rds"))
+
+integrated <- readRDS(file.path(root_dir, "04_Liveseq_scRNAseq_integration/Intergrated_data.integrated.rds"))
 
 ##---------------------------------------------##
 ##--------------Compute clustering-------------##
@@ -48,12 +50,12 @@ scRNAseq_only <- scRNAseq_only %>% FindClusters(res = 0.2)
 # one batch contains only not treated cells 
 sc_aspcs_all <- f_subsample(scRNAseq_only, CT = "ASPC", B = c("5Reseq", "6",  "7", "scRNA","8_8", "9_1"), Sampling = "scRNA", correct_batch = F)
 sc_aspcs_all <- sc_aspcs_all %>%  RunTSNE(dims = 1:10, perplexity = 10) %>% FindNeighbors(dims =  1:10) %>% FindClusters(res = 0.2)
-levels(sc_aspcs_all$integrated_snn_res.0.2) <- c("ASPC_not_treated", "ASPC_DMIR_treated")
+levels(sc_aspcs_all$RNA_snn_res.0.2) <- c("ASPC_not_treated", "ASPC_DMIR_treated")
 
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- scRNAseq_only$integrated_snn_res.0.2
-levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.2) <- c("Raw264.7_not_treated", "IBA_not_treated", "Raw264.7_LPS_treated", "ASPC")
+scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- scRNAseq_only$RNA_snn_res.0.2
+levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.2) <- c("Raw264.7_not_treated", "IBA_not_treated", "Raw264.7_LPS_treated", "ASPC", "ASPC")
 scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- as.character(scRNAseq_only$MODIFIED_integrated_snn_res.0.2)
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2[colnames(sc_aspcs_all)] <- as.character(sc_aspcs_all$integrated_snn_res.0.2)
+scRNAseq_only$MODIFIED_integrated_snn_res.0.2[colnames(sc_aspcs_all)] <- as.character(sc_aspcs_all$RNA_snn_res.0.2)
 
 # Live-seq:
 ## Same as scRNA-seq
@@ -69,8 +71,8 @@ levels(Liveseq_only$MODIFIED_RNA_snn_res.0.2) <- c("Raw264.7_not_treated", "ASPC
 Liveseq_only$MODIFIED_RNA_snn_res.0.2 <- as.character(Liveseq_only$MODIFIED_RNA_snn_res.0.2)
 Liveseq_only$MODIFIED_RNA_snn_res.0.2[colnames(live_aspcs_all)] <- as.character(live_aspcs_all$RNA_snn_res.0.6)
 
-saveRDS(scRNAseq_only, paste0(root_dir,"/data/scRNAseq_only.rds"))
-saveRDS(Liveseq_only, paste0(root_dir,"/data/Liveseq_only.rds"))
+saveRDS(scRNAseq_only, file.path(root_dir,"03_scRNA_seq_only/scRNAseq_only.rds"))
+saveRDS(Liveseq_only, file.path(root_dir,"02_Live_seq_only/Liveseq_only.rds"))
 
 ##---------------------------------------------##
 ##--------Calculate Adjusted Rand Index--------##
