@@ -15,7 +15,7 @@ This repository contains the pipeline to be able to reproduce all figures of the
 
 **02. Live-seq:** Subset the Seurat object to Live-seq cells only. Generate Live-seq-specific QCs. Downsampling of Live-seq.
 
-**03. scNRA-seq:** Subset the Seurat object to single-cell RNA-seq (scRNA-seq) cells only. Generate scRNA-seq-specific QCs. Downsampling of scRNA-seq.
+**03. scRNA-seq:** Subset the Seurat object to single-cell RNA-seq (scRNA-seq) cells only. Generate scRNA-seq-specific QCs. Downsampling of scRNA-seq.
 
 **04. Live-seq scNRA-seq integration:** Integration of both layers of data using [Seurat's integration pipeline](https://satijalab.org/seurat/articles/integration_introduction.html).
 
