@@ -34,7 +34,10 @@ This repository contains the pipeline to be able to reproduce all figures of the
 ## Data
 This repository also contains the data used in the pipeline.
 
-**./data:** 
+The main count matrix is downloadable on GEO: [GSE141064](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE141064).
+In the pipeline, it's automatically downloaded and parsed in the first script: **01. Preprocessing**
+
+**[./data](data):** 
   - *mouseGeneTable87_mCherry_EGFP.txt* and *Mus_musculus.GRCm38.100_data.annot.txt*: The gene annotation information (gene name, biotype, exon length, ...)
   - *gene.blacklist.csv*: List of 20 genes that are blacklisted and removed from many analyses, which are derived from the 0 pg input RNA negative control. 
   - *InfoContent_Updated_VX-ASPC-9_4.csv* and *meta.final.csv*: Sample (cell) metadata
