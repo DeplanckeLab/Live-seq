@@ -6,3 +6,4 @@ data
 02_Live_seq_only/*.RData
 02_Live_seq_only/*csv
 05_Liveseq_with_LiveCell_imaging/*csv
+log.foreach.txt
