@@ -9,6 +9,8 @@ W. Chen, O. Guillaume-Gentil, et al., [Genome-wide molecular recording using Liv
 ## Pipeline
 This repository contains the pipeline to be able to reproduce all figures of the paper.
 
+**00. Dependencies:** To install the dependencies for the project. You can find the package versions used in the paper in <sessionInfo.txt>
+
 **01. Preprocessing:** Create a Seurat object from the count matrix generated after Live-seq and single-cell sequencing. Some basic single-cell QCs.
 
 **02. Live-seq:** Subset the Seurat object to Live-seq cells only. Generate Live-seq-specific QCs. Downsampling of Live-seq.
