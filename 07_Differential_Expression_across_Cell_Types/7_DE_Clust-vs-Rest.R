@@ -6,7 +6,7 @@
 ################################################################
 
 ### Author: Pernille Rainer pernille.rainer@epfl.ch  
-### Date: 6.09.2021
+### Date: 6.09.2021 and 2022-03-06
 ### Datasets: scRNA-seq and Live seq 
 ### Goal: Compute DE for each cluster (corresponding to a cell type/state) versus the rest 
 ###       Done for both Live-seq and scRNA-seq data
@@ -27,13 +27,14 @@ library(data.table)
 ##---------------------------------------------##
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
-root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils/utils.R"))
-source(paste0(root_dir, "/utils/myFunctions_DEacrossCT.R"))
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
+source(file.path(root_dir, "utils/utils.R"))
+source(file.path(root_dir, "utils/myFunctions_DEacrossCT.R"))
 
 # Seurat object
-scRNAseq_only <- readRDS(paste0(root_dir, "/data/scRNAseq_only.rds"))
-Liveseq_only <- readRDS(paste0(root_dir, "/data/Liveseq_only.rds"))
+scRNAseq_only <- readRDS(file.path(root_dir, "03_scRNA_seq_only/scRNAseq_only.rds"))
+Liveseq_only <- readRDS(file.path(root_dir, "02_Live_seq_only/Liveseq_only.rds"))
 
 ##---------------------------------------------##
 ##---------------RUN DE ANALYSIS---------------##
