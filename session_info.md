@@ -1,3 +1,4 @@
+<pre>
 ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.1.0 (2021-05-18)
@@ -23,6 +24,7 @@
  beeswarm               0.4.0    2021-06-01 [1] CRAN (R 4.1.0)
  Biobase              * 2.54.0   2021-10-26 [1] Bioconductor
  BiocGenerics         * 0.40.0   2021-10-26 [1] Bioconductor
+ BiocManager            1.30.16  2021-06-15 [1] CRAN (R 4.1.0)
  BiocNeighbors          1.10.0   2021-05-19 [1] Bioconductor
  BiocParallel           1.28.3   2021-12-09 [1] Bioconductor
  BiocSingular           1.8.1    2021-06-08 [1] Bioconductor
@@ -149,6 +151,7 @@
  nlme                   3.1-157  2022-03-25 [1] CRAN (R 4.1.0)
  nnet                   7.3-17   2022-01-13 [1] CRAN (R 4.1.0)
  openxlsx               4.2.5    2021-12-14 [1] CRAN (R 4.1.0)
+ pander                 0.6.5    2022-03-18 [1] CRAN (R 4.1.0)
  parallelly             1.31.0   2022-04-07 [1] CRAN (R 4.1.0)
  patchwork              1.1.1    2020-12-17 [1] CRAN (R 4.1.0)
  pbapply                1.5-0    2021-09-16 [1] CRAN (R 4.1.0)
@@ -254,3 +257,4 @@
  [1] /data/software/R-4.1.0/library
 
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+</pre>
