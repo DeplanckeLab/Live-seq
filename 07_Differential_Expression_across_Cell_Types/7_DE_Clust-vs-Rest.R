@@ -15,7 +15,7 @@
 ## DE are performed per sampling method of one group (i.e., cluster) versus All the rest. The logFC obtained with the two sampling methods are then compared 
 ## CLUSTERING SELECTED: 
 ## Live-seq: MODIFIED_RNA_snn_res.0.2.rds
-## scRNA-seq: MODIFIED_integrated_snn_res.0.2
+## scRNA-seq: MODIFIED_RNA_snn_res.0.1
 
 library(Seurat)
 library(edgeR)
@@ -41,11 +41,11 @@ Liveseq_only <- readRDS(file.path(root_dir, "02_Live_seq_only/Liveseq_only.rds")
 ##---------------------------------------------##
 ## Select genes for DE: Express in at least 15% of one group with at least 2 counts 
   # Select genes from the scRNAseq data
-genes_to_test <- select_genes(scRNAseq_only, "MODIFIED_integrated_snn_res.0.2")
+genes_to_test <- select_genes(scRNAseq_only, "MODIFIED_RNA_snn_res.0.1")
 
 ## Compute DE
 liveseq_edgeR_res_t <- f_edgeR(Liveseq_only, "MODIFIED_RNA_snn_res.0.2", genes_to_test )
-scRNA_edgeR_res_t <- f_edgeR(scRNAseq_only, "MODIFIED_integrated_snn_res.0.2", genes_to_test)
+scRNA_edgeR_res_t <- f_edgeR(scRNAseq_only, "MODIFIED_RNA_snn_res.0.1", genes_to_test)
 
 ## Adjust p-value
 liveseq_edgeR_res_t <- lapply(liveseq_edgeR_res_t, function(x) f_adjPval(x))
@@ -88,7 +88,7 @@ scRNA_edgeR_res_filt <- rbindlist(scRNA_edgeR_res_filt)
 scRNA_edgeR_res_filt <- as.data.frame(scRNA_edgeR_res_filt)
 
 saveRDS(liveseq_edgeR_res, file = paste0(root_dir, "/data/Liveseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.rds"))
-saveRDS(scRNA_edgeR_res, file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest_MODIFIEDres0.2.rds"))
+saveRDS(scRNA_edgeR_res, file = paste0(root_dir, "/data/scRNAseq_edgeR_Clust-vs-Rest_MODIFIEDres0.1.rds"))
 
 ##---------------------------------------------##
 ##-------------PLOT COMPARAISON FC-------------##
@@ -166,10 +166,10 @@ g <- g[!duplicated(g$Ensembl),]
 d <- GetAssayData(scRNAseq_only, slot = "data")[g$Ensembl, ]
 rownames(d) <- data.annot[rownames(d), "Name"]
 d <- t(dynutils::scale_quantile(t(d)))
-d <- d[,order(scRNAseq_only$MODIFIED_integrated_snn_res.0.2)]
+d <- d[,order(scRNAseq_only$MODIFIED_RNA_snn_res.0.1)]
 my_annot_c <- data.frame(row.names = colnames(d),
                          cellType = scRNAseq_only@meta.data[colnames(d), "celltype_treatment"],
-                         clust = scRNAseq_only@meta.data[colnames(d), "MODIFIED_integrated_snn_res.0.2"])
+                         clust = scRNAseq_only@meta.data[colnames(d), "MODIFIED_RNA_snn_res.0.1"])
 
 
 ## PLOT
