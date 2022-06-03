@@ -1,3 +1,19 @@
+################################################################
+#                                                              #
+#                         Preprocessing                        #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: scRNA-seq and Live-seq 
+### Goal: Preprocessing of scRNA-seq and Live-seq data
+
+library(rprojroot)
+root_dir <- find_root(has_file("Live-seq.RProj"))
+
+source(paste0(root_dir, "/utils/utils.R"))
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -7,11 +23,9 @@ library(scater)
 library(reshape2)
 library(Matrix)
 
-root_dir <- getwd()
-
 # download count matrix
 file <- paste0(root_dir, "/data/GSE141064_count.final.csv.gz")
-if (~file.exists(file)) {
+if (!file.exists(file)) {
   download.file(
     "https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/geo/download/?acc=GSE141064&format=file&file=GSE141064%5Fcount%2Efinal%2Ecsv%2Egz",
     file
@@ -19,7 +33,7 @@ if (~file.exists(file)) {
 }
 
 # save packages versions 
-writeLines(capture.output(sessionInfo()), "01_preprocessing/sessionInfo.txt")
+writeLines(capture.output(sessionInfo()), "sessionInfo.txt")
 
 ## input data
 # read count_matrix
