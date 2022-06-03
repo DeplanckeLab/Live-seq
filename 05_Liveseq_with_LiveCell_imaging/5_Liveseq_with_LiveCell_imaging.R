@@ -1,3 +1,16 @@
+################################################################
+#                                                              #
+#               Live-seq with LiveCell imaging                 #
+#                                                              #
+################################################################
+
+### Questions: https://github.com/DeplanckeLab/Live-seq/issues
+### Date: 2022-03-06
+### Datasets: Live-seq and scRNA-seq only
+### Goal: Use Live-seq to predict how a cell will respond to TNF stimulation
+
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+
 library(Seurat)
 library(dplyr)
 library(ggplot2)
@@ -10,12 +23,10 @@ library(ggplot2)
 library(cowplot)
 library(viridis)
 
-root_dir <- getwd()
-
 ## load Seu.all
-Seu.all <- readRDS(paste0(root_dir, "/data/Seu.all.rds"))
+Seu.all <- readRDS(file.path(root_dir, "01_preprocessing/Seu.all.rds"))
 
-## functin for genesymbol and ensemble name conversation
+## function for genesymbol and ensemble name conversation
 gene.info <-
   read.table(
     file = paste0(root_dir, "/data/mouseGeneTable87_mCherry_EGFP.txt"),
@@ -164,7 +175,7 @@ MVG_Liveseq_G9Mock$gene_symbol <-
   sapply(as.character(MVG_Liveseq_G9Mock$ensembl_ID),
          ensembl.to.symbol)
 write.csv(MVG_Liveseq_G9Mock,
-          paste0(root_dir, "/005_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv"))
+          paste0(root_dir, "/05_Liveseq_with_LiveCell_imaging/MVG_Liveseq_G9Mock.csv"))
 
 # Identify the  most highly variable genes
 top30 <- head(VariableFeatures(Liveseq_G9Mock), 30)
@@ -314,7 +325,7 @@ scRNA_G9Mock <-
 
 
 ### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
-gene.blacklist <- read.csv("gene.blacklist.csv")
+gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(scRNA_G9Mock@assays$RNA@counts)
 data.count <-
   data.count[!rownames(data.count) %in% gene.blacklist$ensembl_gene_id,]
@@ -415,6 +426,7 @@ MVG_scRNA_G9Mock$gene_symbol <-
          ensembl.to.symbol)
 write.csv(MVG_scRNA_G9Mock,
           "05_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv")
+
 ## remove EGFP and mCherry from the variable gene, as it biases.
 # VariableFeatures(Liveseq_sub) <- VariableFeatures(Liveseq_sub) [!VariableFeatures(Liveseq_sub) %in% c("EGFP", "mCherry") ]
 # Identify the 10 most highly variable genes
@@ -507,8 +519,6 @@ saveRDS(scRNA_G9Mock,
 
 
 ## save the MVG of both scRNA-seq and Live-seq
-
-
 MVG_scRNA_G9Mock <-
   read.csv("05_Liveseq_with_LiveCell_imaging/MVG_scRNA_G9Mock.csv",
            row.names = 1)
@@ -542,7 +552,7 @@ Liveseq_recordCell <-
            treatment == "not_treated" & Batch == "8_8")
 
 ### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
-gene.blacklist <- read.csv("gene.blacklist.csv")
+gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq_recordCell@assays$RNA@counts)
 data.count <-
   data.count[!rownames(data.count) %in% gene.blacklist$ensembl_gene_id,]
@@ -613,7 +623,7 @@ Liveseq_recordCell <-
   )
 
 saveRDS(Liveseq_recordCell,
-        "05_Liveseq_with_LiveCell_imaging/Liveseq_recordCell.rds")
+        file.path(root_dir, "05_Liveseq_with_LiveCell_imaging/Liveseq_recordCell.rds"))
 
 
 ## cell cycle and slope
@@ -866,57 +876,142 @@ genes_of_interest <-
   c("mCherry.log.intercept", "mCherry.log.slope", "mCherry.AUC")
 
 ##############      linear regression on all the genes    ################
-## use doSNOW to process in parallel
-library(doSNOW)
-nb_cores <- 3
-cl <- makeCluster(nb_cores)
-registerDoSNOW(cl)
 
+library(tibble)
 
+symbol_to_gene <- Liveseq_recordCell@assays$RNA@meta.features %>% rownames_to_column("gene") %>% select(mgi_symbol, gene) %>% deframe()
+gene_to_symbol <- Liveseq_recordCell@assays$RNA@meta.features %>% rownames_to_column("gene") %>% select(gene, mgi_symbol) %>% deframe()
 
-strt <- Sys.time()
-## as the print() in the slave thread could not be shown. Creat a file to record the info from the slave threads.
-## Use the sink() function inside the foreach loop (slave thread)
-writeLines(c(""), "log.foreach.txt")
-foreach(
-  i = 1:length(genes_of_interest),
-  .packages = c("Seurat", "dplyr", "ggplot2", "cowplot"),
-  .verbose = T
-) %dopar% {
-  lmMod(exp.trans = df, targetGene = genes_of_interest[i])
+X <- as.matrix(Matrix::t(as.matrix(Liveseq_recordCell@assays$RNA@data)[MVG_all_G9Mock$ensembl_ID, ]))
+X <- X[, apply(X, 2, sd) > 0.5]
+ncol(X)
+
+X <- cbind(X, as.matrix(Liveseq_recordCell@meta.data[, c("S.Score", "G2M.Score")]))
+
+# determine the output (the output_id variable will also be used downstream for output files, etc)
+output_id <- "slope"
+# output_id <- "intercept"
+
+if (output_id == "slope") {
+  y <- Liveseq_recordCell@meta.data$mCherry.log.slope
+} else if (output_id == "intercept") {
+  y <- Liveseq_recordCell@meta.data$mCherry.log.intercept
+} else {
+  stop()
 }
 
-print(Sys.time() - strt)
-stopCluster(cl)
+model <- function(x, y) {
+  lm <- lm(y ~ x)
+  tibble(
+    intercept = lm$coefficients["x"],
+    pval = summary(lm)$coefficients[,4]["x"],
+    coef = lm$coefficients["x"],
+    r2 = summary(lm)$r.squared
+  )
+}
+scores <- purrr::map_dfr(colnames(X), function(gene) {
+  x <- X[, gene]
+  model(x, y) %>% mutate(gene = gene)
+})
+scores <- scores %>% mutate(symbol = gene_to_symbol[gene])
+
+scores$fdr <- p.adjust(scores$pval, method = "fdr")
+
+scores %>% arrange(fdr)
 
 
+# Bootstrapping p-value ---------------------------------------------------
+library(furrr)
 
-## linear regression with only the MVGs
-MVG_all_G9Mock <-
-  read.csv("05_Liveseq_with_LiveCell_imaging/MVG_all_G9Mock.csv",
-           row.names = 1)
+# calculate scores for samples
+n_samples <- 500
 
-### remove the genes with 0 variation
+# this will take a couple of minutes depending on the number of samples
+# we use furrr::future_map here to run things in parallel (using the 5 workers we 'planned' earlier)
+resamples_file <- file.path(root_dir, paste0("05_Liveseq_with_LiveCell_imaging/resamples_" , output_id, ".rds"))
 
-# find the genes with 0 variation
-cells.zeroVaria <-
-  which(rowSums(Liveseq_recordCell@assays$RNA@counts[MVG_all_G9Mock$ensembl_ID,]) == 0)
-MVG_all_G9Mock <-
-  MVG_all_G9Mock %>% filter(!(ensembl_ID %in% names(cells.zeroVaria)))
-dim(MVG_all_G9Mock)
+if (!file.exists(resamples_file)){
+  resamples <- furrr::future_map_dfr(1:n_samples, function(sample_ix) {
+    library(Matrix)
+    set.seed(sample_ix)
+    X_resampled <- X[sample(nrow(X), replace = FALSE),]
+    map_dfr(colnames(X_resampled), function(gene) {
+      x <- X_resampled[, gene]
+      model(x, y) %>% mutate(gene = gene)
+    }) %>% mutate(sample_ix = sample_ix)
+  }, .options = furrr_options(seed = TRUE))
+  saveRDS(resamples, resamples_file)
+}
+resamples <- readRDS(resamples_file)
+
+resamples <- resamples %>% filter(gene %in% colnames(X))
+dim(resamples)
+
+# visualize the distribution for all genes with one gene on top
+resamples %>% ggplot(aes(coef, y=..count../sum(..count..))) + # plot normalized counts
+  geom_histogram() + # plot for all genes
+  geom_histogram(fill = "red", alpha = 0.5, data = function(data){filter(data, gene == symbol_to_gene["Nfkbia"])}) # plot for one gene
+
+# create an empirical distribution for each gene
+# essentially just a vector containing all r2 :-)
+empirical <- resamples %>% group_by(gene) %>% summarize(coef = list(coef))
+
+# calculate the p-value by checking how many samples have a higher r2 than the actual observed r2
+scores2 <- scores %>% 
+  left_join(empirical, "gene", suffix = c("", "_empirical")) %>% 
+  mutate(
+    pval = pmap_dbl(., function(coef, coef_empirical, ...) {
+      mean(abs(coef_empirical) >= abs(coef)) *0.99 + 0.01
+    })
+  ) %>% 
+  # filter(abs(coef) > 0) %>% 
+  # filter(gene %in% rownames(seu@assays$RNA@meta.features)[log2(seu@assays$RNA@meta.features$vst.mean) > 5])
+  identity()
+scores2
 
 
-##############      linear regression on the MVGs    ################
-df.MVG <-
-  df[, c(
-    as.character(MVG_all_G9Mock$ensembl_ID),
-    "mCherry.log.intercept",
-    "mCherry.log.slope",
-    "mCherry.AUC"
-  )]
+# plot the p-value distribution
+# if all null hypotheses are true, this should look like a uniform distribution between 0 and 1
+# if some null hypotheses are false, this distribution will be skewed towards zero
+ggplot(scores2, aes(pval)) + geom_histogram()
 
+# correct for multiple testing
+scores$fdr <- p.adjust(scores$pval, method = "fdr")
+scores2$fdr <- p.adjust(scores2$pval, method = "fdr")
 
+scores2 %>% arrange(fdr) %>% filter(fdr > 0)
 
-lmMod(exp.trans = df.MVG, targetGene = genes_of_interest[1])
-lmMod(exp.trans = df.MVG, targetGene = genes_of_interest[2])
-lmMod(exp.trans = df.MVG, targetGene = genes_of_interest[3])
+qplot(scores2$pval, scores2$fdr)
+qplot(scores$pval, scores$fdr)
+
+scores$symbol <- gene_to_symbol[scores$gene]
+
+# volcano plot
+plot <- ggplot(scores, aes(coef, fdr)) + 
+  geom_point() + 
+  ggrepel::geom_label_repel(aes(label = symbol), data = function(data) {data %>% arrange(fdr, -abs(coef)) %>% head(5)}, nudge_y = 0.05) +
+  scale_y_continuous(limits = c(0, 1)) +
+  ggtitle(output_id) +
+  theme_minimal()
+plot
+
+# save scores
+final_scores <- left_join(
+  scores %>% select(pval, fdr, r2, coef, gene, symbol),
+  scores2 %>% select(pval, fdr, gene, symbol),
+  by = c("gene", "symbol"),
+  suffix = c("_lm", "_bootstrap")
+) %>% arrange(fdr_lm)
+
+file <- file.path(root_dir, paste0("05_Liveseq_with_LiveCell_imaging/", output_id, "_scores.csv"))
+readr::write_excel_csv2(final_scores, file)
+openxlsx::write.xlsx(final_scores, file)
+
+wb <- openxlsx::createWorkbook()
+openxlsx::saveWorkbook(wb, file.path(root_dir, paste0("05_Liveseq_with_LiveCell_imaging/scores.xlsx")))
+wb <- openxlsx::loadWorkbook(file.path(root_dir, paste0("05_Liveseq_with_LiveCell_imaging/scores.xlsx")))
+openxlsx::removeWorksheet(wb, output_id)
+openxlsx::addWorksheet(wb, output_id)
+openxlsx::writeData(wb, output_id, final_scores)
+
+openxlsx::saveWorkbook(wb, file.path(root_dir, paste0("05_Liveseq_with_LiveCell_imaging/scores.xlsx")), overwrite = TRUE)
