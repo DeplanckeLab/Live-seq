@@ -17,7 +17,7 @@ This repository contains the pipeline to be able to reproduce all figures of the
 
 **04. Live-seq scNRA-seq integration:** Integration of both layers of data using [Seurat's integration pipeline](https://satijalab.org/seurat/articles/integration_introduction.html).
 
-**5. Live-seq with live cell imaging:** Connecting the transcriptomic profile with a downstream phenotypic response, i.e. TNF upregulation upon LPS treatment
+**05. Live-seq with live cell imaging:** Connecting the transcriptomic profile with a downstream phenotypic response, i.e. TNF upregulation upon LPS treatment
 
 **06. Clustering:** Compute clustering accuracy (ARI, Barplot comparison and clustree)
 
