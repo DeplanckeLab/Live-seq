@@ -25,7 +25,7 @@ Seu.all <- readRDS("01_preprocessing/Seu.all.rds")
 
 ### subset of exp5,6,7,scRNA
 Twodata <- subset(Seu.all, subset = ( (sampling_type %in% c("Live_seq", "scRNA")) & celltype_treatment %in% c("ASPC_not_treated", "ASPC_DMIR_treated", "IBA_not_treated", "Raw264.7_not_treated", "Raw264.7_LPS_treated") )) 
-### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control. 
+### remove 211 genes in black list, which are derived from the 0 pg input RNA negative control. 
 gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(Twodata@assays$RNA@counts)
 data.count <- data.count[ !rownames(data.count) %in% gene.blacklist$ensembl_gene_id, ]

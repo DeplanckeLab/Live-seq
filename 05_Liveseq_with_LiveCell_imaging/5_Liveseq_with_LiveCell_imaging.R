@@ -80,7 +80,7 @@ Liveseq_G9Mock <-
   )
 
 
-### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
+### remove 211 genes in black list, which are derived from the 0 pg input RNA negative control.
 gene.blacklist <- read.csv(paste0(root_dir, "/data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq_G9Mock@assays$RNA@counts)
 data.count <-
@@ -324,7 +324,7 @@ scRNA_G9Mock <-
   )
 
 
-### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
+### remove 211 genes in black list, which are derived from the 0 pg input RNA negative control.
 gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(scRNA_G9Mock@assays$RNA@counts)
 data.count <-
@@ -551,7 +551,7 @@ Liveseq_recordCell <-
          mCherry.log.intercept > 0 &
            treatment == "not_treated" & Batch == "8_8")
 
-### remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
+### remove 211 genes in black list, which are derived from the 0 pg input RNA negative control.
 gene.blacklist <- read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq_recordCell@assays$RNA@counts)
 data.count <-

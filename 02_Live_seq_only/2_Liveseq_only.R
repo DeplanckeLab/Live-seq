@@ -34,7 +34,7 @@ Liveseq <-
   subset(Seu.all,
          subset = (sampling_type == "Live_seq" & nFeature_RNA > 1000))
 dim(Liveseq)
-# remove 20 genes in black list, which are derived from the 0 pg input RNA negative control.
+# remove 211 genes in black list, which are derived from the 0 pg input RNA negative control.
 gene.blacklist <-
   read.csv(file.path(root_dir, "data/gene.blacklist.csv"))
 data.count <- as.matrix(Liveseq@assays$RNA@counts)
