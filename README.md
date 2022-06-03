@@ -44,3 +44,4 @@ In the pipeline, it's automatically downloaded and parsed in the first script: *
   - *gene.blacklist.csv*: List of 20 genes that are blacklisted and removed from many analyses, which are derived from the 0 pg input RNA negative control. 
   - *InfoContent_Updated_VX-ASPC-9_4.csv* and *meta.final.csv*: Sample (cell) metadata
   - *log.foreach.txt*: Log of clustering script
+  - *s.genes.mouse.rds* and *g2m.genes.mouse.rds*: Cell cycle genes used to assign cell cycle scores
