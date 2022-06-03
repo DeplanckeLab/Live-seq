@@ -25,13 +25,14 @@ library(dplyr)
 ##------------------LOAD DATA------------------##
 ##---------------------------------------------##
 
-root_dir <- find_root(has_file("Live-seq.RProj"))
-source(paste0(root_dir, "/utils/utils.R"))
+root_dir <- rprojroot::find_root(rprojroot::is_rstudio_project)
+source(file.path(root_dir, "utils/utils.R"))
 
-Liveseq_all <- readRDS(paste0(root_dir, "/data/Liveseq_all_fluoresecene_added.3_7.5h.rds"))
+Liveseq_all <- readRDS(file.path(root_dir, "02_Live_seq_only/Liveseq_only.rds"))
+# Liveseq_all <- readRDS(file.path(root_dir, "01_preprocessing/Liveseq_all_fluoresecene_added.3_7.5h.rds"))
 Liveseq_all$uniquely.mapped.rate <- Liveseq_all$uniquely.mapped / Liveseq_all$input.reads
 
-scRNAseq_all <- readRDS("~/SVRAW1/wchen/data_analysis/Live_seq/final_analysis_V3/scRNAseq_only/scRNAseq.rds")
+scRNAseq_all <- readRDS(file.path("03_scRNA_seq_only/scRNAseq_only.rds"))
 scRNAseq_all$uniquely.mapped.rate <- scRNAseq_all$uniquely.mapped / scRNAseq_all$input.reads
 
 ##---------------------------------------------##
@@ -43,7 +44,7 @@ f_prepare <- function(all, CT , B, Sampling ){
   if(length(B) > 1){
     var_reg <- c("Batch", "nCount_RNA", "nFeature_RNA")}else{
       var_reg <- c("nCount_RNA", "nFeature_RNA")}
-  myseu <- myseu %>% FindVariableFeatures() %>% NormalizeData() %>% ScaleData(vars.to.regress = var_reg) %>% RunPCA()
+  myseu <- myseu %>% FindVariableFeatures() %>% NormalizeData() %>% ScaleData(vars.to.regress = var_reg) %>% RunPCA(npcs = 20)
   myseu <- myseu %>% JackStraw(num.replicate = 100) %>% ScoreJackStraw(dims = 1:20)
   return(myseu)
 }
