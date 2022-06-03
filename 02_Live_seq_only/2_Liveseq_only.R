@@ -212,7 +212,7 @@ saveRDS(Liveseq, "02_Live_seq_only/Liveseq_only.rds")
 
 #########  DE genes per cluster  ##########
 ## remove the pseudogene from DE analysis
-geneName <- read.table(file = "mouseGeneTable87_mCherry_EGFP.txt", sep = "\t", header = T, row.names = 1 )
+geneName <- read.table(file = file.path(root_dir, "data/mouseGeneTable87_mCherry_EGFP.txt"), sep = "\t", header = T, row.names = 1 )
 gene.pseudogene <- geneName[endsWith(as.character(geneName$gene_biotype),  "pseudogene"),]
 gene.pseudoRemoved <- subset(Liveseq@assays$RNA@meta.features, !(ensembl_gene_id %in% gene.pseudogene$ensembl_gene_id))
 
