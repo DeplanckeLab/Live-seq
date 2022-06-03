@@ -52,10 +52,10 @@ sc_aspcs_all <- f_subsample(scRNAseq_only, CT = "ASPC", B = c("5Reseq", "6",  "7
 sc_aspcs_all <- sc_aspcs_all %>%  RunTSNE(dims = 1:10, perplexity = 10) %>% FindNeighbors(dims =  1:10) %>% FindClusters(res = 0.2)
 levels(sc_aspcs_all$RNA_snn_res.0.2) <- c("ASPC_not_treated", "ASPC_DMIR_treated")
 
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- scRNAseq_only$RNA_snn_res.0.2
-levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.2) <- c("Raw264.7_not_treated", "IBA_not_treated", "Raw264.7_LPS_treated", "ASPC", "ASPC")
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- as.character(scRNAseq_only$MODIFIED_integrated_snn_res.0.2)
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2[colnames(sc_aspcs_all)] <- as.character(sc_aspcs_all$RNA_snn_res.0.2)
+scRNAseq_only$MODIFIED_integrated_snn_res.0.1 <- scRNAseq_only$RNA_snn_res.0.1
+levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.1) <- c("Raw264.7_not_treated", "IBA_not_treated", "Raw264.7_LPS_treated", "ASPC")
+scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- as.character(scRNAseq_only$MODIFIED_integrated_snn_res.0.1)
+scRNAseq_only$MODIFIED_integrated_snn_res.0.2[colnames(sc_aspcs_all)] <- as.character(sc_aspcs_all$RNA_snn_res.0.1)
 
 # Live-seq:
 ## Same as scRNA-seq
@@ -90,12 +90,12 @@ mclust::adjustedRandIndex(Liveseq_only$celltype_treatment, Liveseq_only$MODIFIED
 
 ## scRNA-seq:
   # Extended data Figure 2 o (first two panels)
-grid.arrange(DimPlot(scRNAseq_only, group.by = "MODIFIED_integrated_snn_res.0.2", reduction = "tsne", 
+grid.arrange(DimPlot(scRNAseq_only, group.by = "MODIFIED_integrated_snn_res.0.1", reduction = "tsne", 
                      cols = unname(celltype_treatment_colors[levels(as.factor(scRNAseq_only$MODIFIED_integrated_snn_res.0.2))])) + theme(legend.position = "none"),
              DimPlot(scRNAseq_only, group.by = "celltype_treatment", reduction = "tsne",
                      cols = unname(c(celltype_treatment_colors[levels(as.factor(scRNAseq_only$celltype_treatment))]))) + theme(legend.position = "none"),
              nrow = 1,
-             top = paste0("ARI = ", round(mclust::adjustedRandIndex(scRNAseq_only$celltype_treatment, scRNAseq_only$MODIFIED_integrated_snn_res.0.2), 2)))
+             top = paste0("ARI = ", round(mclust::adjustedRandIndex(scRNAseq_only$celltype_treatment, scRNAseq_only$MODIFIED_integrated_snn_res.0.1), 2)))
 mclust::adjustedRandIndex(scRNAseq_only$celltype_treatment, scRNAseq_only$MODIFIED_integrated_snn_res.0.2) #0.9522529
 
 ##---------------------------------------------##
@@ -114,7 +114,7 @@ ggplot(df, aes(Var2, value, fill = Var1)) + geom_bar(stat = "identity") + scale_
 
 ## scRNA-seq:
   # Extended data figure 2 q
-df <- reshape2::melt(table(scRNAseq_only$celltype_treatment, paste0(scRNAseq_only$MODIFIED_integrated_snn_res.0.2, "-clust")))
+df <- reshape2::melt(table(scRNAseq_only$celltype_treatment, paste0(scRNAseq_only$MODIFIED_integrated_snn_res.0.1, "-clust")))
 df$Var1 <- factor(as.character(df$Var1), levels = names(celltype_treatment_colors))
 df$Var2 <- factor(as.character(df$Var2), levels = paste0(names(celltype_treatment_colors), "-clust"))
 ggplot(df, aes(Var2, value, fill = Var1)) + geom_bar(stat = "identity") + scale_fill_manual(values = unname(celltype_treatment_colors)) + 
@@ -126,13 +126,13 @@ ggplot(df, aes(Var2, value, fill = Var1)) + geom_bar(stat = "identity") + scale_
 ## 
 ## Preparation
 Liveseq_only$MODIFIED_RNA_snn_res.0.2 <- factor(Liveseq_only$MODIFIED_RNA_snn_res.0.2, levels = levels(Liveseq_only$celltype_treatment))
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2 <- factor(scRNAseq_only$MODIFIED_integrated_snn_res.0.2, levels = levels(scRNAseq_only$celltype_treatment))
+scRNAseq_only$MODIFIED_integrated_snn_res.0.1 <- factor(scRNAseq_only$MODIFIED_integrated_snn_res.0.1, levels = levels(scRNAseq_only$celltype_treatment))
 
 Liveseq_only$Celltype_simple <- as.factor(Liveseq_only$Cell_type); levels(Liveseq_only$Celltype_simple) <- c("ASPC", "IBA", "RAW", "RAW")
 Liveseq_only$MODIFIED_RNA_snn_res.0.2_CellType <- Liveseq_only$MODIFIED_RNA_snn_res.0.2; levels(Liveseq_only$MODIFIED_RNA_snn_res.0.2_CellType) <- c(rep("ASPC", 2), "IBA", rep("RAW", 2))
 
 scRNAseq_only$Celltype_simple <- as.factor(scRNAseq_only$Cell_type); levels(scRNAseq_only$Celltype_simple) <- c("ASPC", "IBA", "RAW")
-scRNAseq_only$MODIFIED_integrated_snn_res.0.2_CellType <- scRNAseq_only$MODIFIED_integrated_snn_res.0.2; levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.2_CellType) <- c(rep("ASPC", 2), "IBA", rep("RAW", 2))
+scRNAseq_only$MODIFIED_integrated_snn_res.0.1_CellType <- scRNAseq_only$MODIFIED_integrated_snn_res.0.1; levels(scRNAseq_only$MODIFIED_integrated_snn_res.0.1_CellType) <- c(rep("ASPC", 2), "IBA", rep("RAW", 2))
 
 # ## 1. Accuracy for Cell type classification
 #   #Live-seq
@@ -140,7 +140,7 @@ scRNAseq_only$MODIFIED_integrated_snn_res.0.2_CellType <- scRNAseq_only$MODIFIED
 # Correct_Live_CT <- sum(diag(t_live_CT))/sum(t_live_CT) #0.9897959
 # Wrong_Live_CT <- sum(t_live_CT[row(t_live_CT) != col(t_live_CT)])/sum(t_live_CT) #0.01020408 
 #   #scRNA-seq
-# t_sc_CT <- table(scRNAseq_only$Celltype_simple, scRNAseq_only$MODIFIED_integrated_snn_res.0.2_CellType)
+# t_sc_CT <- table(scRNAseq_only$Celltype_simple, scRNAseq_only$MODIFIED_integrated_snn_res.0.1_CellType)
 # Correct_sc_CT <- sum(diag(t_sc_CT))/sum(t_sc_CT) #0.9981949
 # Wrong_sc_CT <- sum(t_sc_CT[row(t_sc_CT) != col(t_sc_CT)])/sum(t_sc_CT) #0.001805054
 
@@ -151,7 +151,7 @@ t_live_noIBA <- table(Liveseq_only$celltype_treatment[Liveseq_only$celltype_trea
 Correct_Live_noIBA <- sum(diag(t_live_noIBA))/sum(t_live_noIBA) #0.924
 Wrong_Live_noIBA <- sum(t_live_noIBA[row(t_live_noIBA) != col(t_live_noIBA)])/sum(t_live_noIBA) #0.076 
   #scRNA-seq
-t_sc_noIBA <- table(scRNAseq_only$celltype_treatment[scRNAseq_only$celltype_treatment != "IBA_not_treated"], scRNAseq_only$MODIFIED_integrated_snn_res.0.2[scRNAseq_only$celltype_treatment != "IBA_not_treated"])
+t_sc_noIBA <- table(scRNAseq_only$celltype_treatment[scRNAseq_only$celltype_treatment != "IBA_not_treated"], scRNAseq_only$MODIFIED_integrated_snn_res.0.1[scRNAseq_only$celltype_treatment != "IBA_not_treated"])
 Correct_sc_noIBA <- sum(diag(t_sc_noIBA))/sum(t_sc_noIBA) #0.9800499
 Wrong_sc_noIBA <- sum(t_sc_noIBA[row(t_sc_noIBA) != col(t_sc_noIBA)])/sum(t_sc_noIBA) #0.01995012 
 
